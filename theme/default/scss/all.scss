@@ -1,0 +1,15 @@
+$colorText: #666666;
+
+// --- layout ---
+
+body {
+    font-family: "Ubuntu", "Arial";
+    font-size: 1em;
+    font-weight: normal;
+    color: $colorText;
+}
+
+.container {
+    max-width: 700px;
+    margin: 50px auto;
+}

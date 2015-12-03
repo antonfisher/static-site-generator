@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+ _____     _           _____ _     _
+|  _  |___| |_ ___ ___|   __|_|___| |_ ___ ___   ___ ___ _____
+|     |   |  _| . |   |   __| |_ -|   | -_|  _|_|  _| . |     |
+|__|__|_|_|_| |___|_|_|__|  |_|___|_|_|___|_| |_|___|___|_|_|_|
+
+{{config.name}} <{{config.email}}>
+
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{config.name}}'s notes</title>
+    <meta name="description" content="{{config.description}}">
+    <meta name="author" content="{{config.name}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="icon" href="/favicon.ico">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
+</head>
+<body>
+<div class="container">
+    <header>
+        <a href="/" title="Home"><h1>{{config.name}}<span>&#8217;s notes</span></h1></a>
+
+        <div class="link">
+            <a href="/about" title="About">about</a>
+        </div>
+        <div class="link">
+            <a href="/feed.xml" title="RSS feed link">rss</a>
+        </div>
+        <a href="/about">
+            <img src="https://avatars.githubusercontent.com/u/599352?s=50" title="Contact information" alt="About">
+        </a>
+        <hr>
+    </header>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <hr>
+        <div>
+            <a href="/">home</a>
+            <span class="devider">&nbsp;</span>
+            <a href="/about">about</a>
+            <span class="devider">&nbsp;</span>
+            <a href="/feed.xml">rss</a>
+        </div>
+        <div class="right">
+            &copy;
+            <time datetime="2015">2015</time>
+            {{config.name}}
+        </div>
+    </footer>
+</div>
+</body>
+</html>

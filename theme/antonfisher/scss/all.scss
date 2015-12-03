@@ -1,0 +1,159 @@
+$colorText: #444444;
+$colorGray: #999999;
+$colorBorder: #e0e0e0;
+$colorLink: #556699;
+$colorLinkHover: #6677bb;
+
+// --- layout ---
+
+body {
+    font-family: "Ubuntu", "Arial";
+    font-size: 1em;
+    font-weight: normal;
+    color: $colorText;
+}
+
+.container {
+    max-width: 750px;
+    margin: 45px auto;
+}
+
+// --- common ---
+
+a {
+    text-decoration: none;
+    color: $colorLink;
+}
+
+a:visited, a:hover {
+    color: $colorLinkHover;
+}
+
+a:hover {
+    text-decoration: underline;
+
+    h1 {
+        text-decoration: none;
+    }
+}
+
+hr {
+    border: 0;
+    border-bottom: 1px solid $colorBorder;
+    height: 0px;
+    width: 100%;
+    clear: both;
+}
+
+h1 {
+    margin: 10px 2px 10px 2px;
+
+    span {
+        color: #666666;
+        font-size: 0.7em;
+        padding-left: 5px;
+    }
+}
+
+h2 {
+    margin: 0;
+}
+
+span.devider {
+    display: inline-block;
+    border: 0;
+    border-right: 1px solid $colorBorder;
+    height: 100%;
+    width: 0px;
+    margin: 0 5px;
+}
+
+// --- structure ---
+
+.container {
+    header {
+        padding-bottom: 20px;
+
+        a, a:hover, a:visited {
+            color: $colorText;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #555555;
+            text-decoration: none;
+        }
+
+        h1 {
+            float: left;
+        }
+
+        img {
+            float: right;
+            border-radius: 5px;
+            transition: 0.15s ease-in-out;
+        }
+        img:hover {
+            transform: rotate(-3deg);
+        }
+
+        div.link {
+            padding: 24px 0 0 20px;
+            float: left;
+
+            a, a:visited {
+                color: $colorBorder;
+                font-size: 0.9em;
+            }
+
+            a:hover {
+                color: $colorLinkHover;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .post-item {
+        padding: 13px 0;
+
+        time {
+            color: $colorGray;
+            font-size: 0.7em;
+        }
+    }
+
+    .about-items {
+        padding: 0 0 10px 0;
+
+        a {
+            display: block;
+            margin: 10px 0;
+        }
+    }
+
+    article {
+        a {
+            text-decoration: underline;
+        }
+
+        time {
+            color: $colorGray;
+            font-size: 0.7em;
+        }
+    }
+
+    footer {
+        padding-top: 10px;
+        font-size: 0.7em;
+        color: $colorGray;
+
+        div {
+            float: left;
+        }
+
+        div.right {
+            float: right;
+            text-align: left;
+        }
+    }
+}

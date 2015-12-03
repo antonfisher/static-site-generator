@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+{{config.name}} <{{config.email}}>
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{config.name}}</title>
+    <meta name="description" content="{{config.description}}">
+    <meta name="author" content="{{config.name}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="icon" href="/favicon.ico">
+    <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
+</head>
+<body>
+<div class="container">
+    <header>
+        <a href="/" title="Home"><h1>{{config.name}}</h1></a>
+        <a href="/about" title="About">about</a> | <a href="/feed.xml" title="RSS feed link">rss</a>
+        <hr>
+    </header>
+
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <hr>
+        <div>
+            <a href="/">home</a> | <a href="/about">about</a> | <a href="/feed.xml">rss</a>
+        </div>
+        <br>
+        <div>
+            &copy;
+            <time datetime="2015">2015</time>
+            {{config.name}}
+        </div>
+    </footer>
+</div>
+</body>
+</html>
