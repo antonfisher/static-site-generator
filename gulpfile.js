@@ -103,6 +103,10 @@ gulp.task('renderer', function () {
 
     rimraf.sync('../posts/*');
 
+    gulp.src(themePath + '/resources/**/*')
+        .pipe(gulp.dest('../resources/'))
+        .pipe(reload({stream: true}));
+
     nunjucksRender.nunjucks.configure([themePath + '/templates']);
 
     posts.map(function (post) {

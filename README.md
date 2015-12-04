@@ -28,7 +28,8 @@ Uses for: [http://antonfisher.github.io](http://antonfisher.github.io)
 
 ## ToDo
 - [x] Config example
-- [ ] Themes images
+- [x] Themes images
+- [x] Copy all theme files
 - [ ] Tags support
 - [ ] 404 page
 - [ ] Comments

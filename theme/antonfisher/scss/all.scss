@@ -32,7 +32,7 @@ a:visited, a:hover {
 a:hover {
     text-decoration: underline;
 
-    h1 {
+    h1, .icon {
         text-decoration: none;
     }
 }
@@ -156,4 +156,81 @@ span.devider {
             text-align: left;
         }
     }
+}
+
+// --- icons ---
+$icon-home: "\e900";
+$icon-envelop: "\e901";
+$icon-mobile: "\e902";
+$icon-earth: "\e90d";
+$icon-checkbox-checked: "\e903";
+$icon-checkbox-unchecked: "\e904";
+$icon-terminal: "\e905";
+$icon-mail: "\e907";
+$icon-twitter: "\e909";
+$icon-github: "\e90a";
+$icon-skype: "\e90b";
+$icon-linkedin: "\e90c";
+
+@font-face {
+    font-family: 'icomoon';
+    src:url('/resources/fonts/icomoon.eot?kokoko');
+    src:url('/resources/fonts/icomoon.eot?kokoko#iefix') format('embedded-opentype'),
+    url('/resources/fonts/icomoon.ttf?kokoko') format('truetype'),
+    url('/resources/fonts/icomoon.woff?kokoko') format('woff'),
+    url('/resources/fonts/icomoon.svg?kokoko#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.icon {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-home3:before {
+    content: "\e900";
+}
+.icon-envelop:before {
+    content: "\e901";
+}
+.icon-mobile:before {
+    content: "\e902";
+}
+.icon-earth:before {
+    content: "\e90d";
+}
+.icon-checkbox-checked:before {
+    content: "\e903";
+}
+.icon-checkbox-unchecked:before {
+    content: "\e904";
+}
+.icon-terminal:before {
+    content: "\e905";
+}
+.icon-mail:before {
+    content: "\e907";
+}
+.icon-twitter:before {
+    content: "\e909";
+}
+.icon-github:before {
+    content: "\e90a";
+}
+.icon-skype:before {
+    content: "\e90b";
+}
+.icon-linkedin:before {
+    content: "\e90c";
 }
