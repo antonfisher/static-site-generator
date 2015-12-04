@@ -29,7 +29,7 @@ try {
 }
 
 var postsSourcesPath = '../_posts';
-var themePath = ('./theme/' + config.theme);
+var themePath = ('./themes/' + config.theme);
 
 gulp.task('css', function () {
     var scssStream = gulp.src(themePath + '/scss/**/*.scss')
