@@ -5,12 +5,37 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var merge = require('merge-stream');
 var minify = require('gulp-minify-css');
-var markdown = require('markdown').markdown;
+var Remarkable = require('remarkable');
+var highlightJs = require('highlight.js');
 var nunjucksRender = require('gulp-nunjucks-render');
 var fs = require('fs');
 var path = require('path');
 var rimraf = require('rimraf');
 var reload = browserSync.reload;
+
+var markdown = new Remarkable({
+    html: true,
+    langPrefix: 'language-',
+    linkify: true,
+    typographer: true,
+    highlight: function (str, lang) {
+        if (lang && highlightJs.getLanguage(lang)) {
+            try {
+                return highlightJs.highlight(lang, str).value;
+            } catch (err) {
+                //--
+            }
+        }
+
+        try {
+            return highlightJs.highlightAuto(str).value;
+        } catch (err) {
+            //--
+        }
+
+        return '';
+    }
+});
 
 var configFile = '../_config.json';
 var config = {
@@ -37,7 +62,10 @@ gulp.task('css', function () {
         .pipe(concat('scss'))
         .pipe(reload({stream: true}));
 
-    var cssStream = gulp.src('./node_modules/normalize.css/normalize.css')
+    var cssStream = gulp.src([
+            './node_modules/normalize.css/normalize.css',
+            './node_modules/highlight.js/styles/default.css'
+        ])
         .pipe(concat('css'))
         .pipe(reload({stream: true}));
 
@@ -87,7 +115,7 @@ gulp.task('renderer', function () {
             }
 
             post.datetimeISO = formatDate(post.date);
-            post.article = markdown.toHTML(article);
+            post.article = markdown.render(article);
             post.link = [
                 '/posts',
                 post.date.replace(/-/g, '/'),
