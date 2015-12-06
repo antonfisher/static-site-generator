@@ -23,7 +23,9 @@
 <body>
 <div class="container">
     <header>
-        <a href="/" title="Home"><h1>{{config.name}}<span>&#8217;s notes</span></h1></a>
+        <a href="/" title="Home">
+            <div class="title">{{config.name}}<span>&#8217;s notes</span></div>
+        </a>
 
         <div class="link">
             <a href="/about" title="About">about</a>
@@ -34,7 +36,8 @@
         <a href="/about">
             <img src="https://avatars.githubusercontent.com/u/599352?s=50" title="Contact information" alt="About">
         </a>
-        <hr>
+
+        <div class="clear"></div>
     </header>
 
     <div class="content">
@@ -42,7 +45,6 @@
     </div>
 
     <footer>
-        <hr>
         <div>
             <a href="/">home</a>
             <span class="devider">&nbsp;</span>

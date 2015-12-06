@@ -18,6 +18,7 @@ var markdown = new Remarkable({
     langPrefix: 'language-',
     linkify: true,
     typographer: true,
+    xhtmlOut: true,
     highlight: function (str, lang) {
         if (lang && highlightJs.getLanguage(lang)) {
             try {
