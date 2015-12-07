@@ -2,7 +2,7 @@
   "theme": "default",
   "name": "{NAME}",
   "email": "{EMAIL}",
-  "url": "http://{SITE}.com",
+  "url": "{SITE}.com",
   "rssUUID": "{RSS-UUID}",
   "description": "{DESCRIPTION}"
 }

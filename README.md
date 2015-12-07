@@ -31,10 +31,12 @@ Uses for: [http://antonfisher.github.io](http://antonfisher.github.io)
 - [x] Themes images
 - [x] Copy all theme files
 - [x] Post summary on index page
-- [ ] Tags support
+- [x] GA config
 - [ ] 404 page
+- [ ] Host in config
+- [ ] Check localhost for GA
+- [ ] Tags support
 - [ ] Comments
-- [ ] GA config
 - [ ] Pagination
 
 ## License
