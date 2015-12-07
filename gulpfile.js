@@ -123,6 +123,9 @@ gulp.task('renderer', function () {
                 post.title.toLowerCase().replace(/[^\w]/g, '-')
             ].join('/');
             post.uuid = post.link.replace(/\//g, '-');
+            post.preview = post.article
+                .replace(/\n/g, ' ')
+                .replace(/^(.*)<cut>.*$/g, '$1&hellip; <a href="' + post.link + '">Read more.</a>');
 
             return post;
         })

@@ -30,7 +30,7 @@ Uses for: [http://antonfisher.github.io](http://antonfisher.github.io)
 - [x] Config example
 - [x] Themes images
 - [x] Copy all theme files
-- [ ] Post summary on index page
+- [x] Post summary on index page
 - [ ] Tags support
 - [ ] 404 page
 - [ ] Comments
