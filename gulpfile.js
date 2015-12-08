@@ -101,7 +101,7 @@ gulp.task('renderer', function () {
                     return null;
                 }
 
-                var requiredParams = ['title', 'date'];
+                var requiredParams = ['title', 'date', 'image'];
                 for (var i in requiredParams) {
                     if (!post[requiredParams[i]]) {
                         console.warn('WARNING: no "', requiredParams[i], '" json param in:', fileName);
@@ -115,19 +115,31 @@ gulp.task('renderer', function () {
                 return null;
             }
 
-            post.datetimeISO = formatDate(post.date);
             post.article = markdown.render(article);
-            post.article = post.article.replace(/<img /, '<img itemprop="image" '); // for google
+            post.datetimeISO = formatDate(post.date);
             post.link = [
                 '/posts',
                 post.date.replace(/-/g, '/'),
                 post.title.toLowerCase().replace(/[^\w]/g, '-')
             ].join('/');
             post.uuid = post.link.replace(/\//g, '-');
+
             post.preview = post.article
                 .replace(/\n/g, ' ')
-                .replace(/^(.*)<cut ?\/?>.*$/g, '$1');
-            post.previewRSS = (post.preview + '</p>');
+                .replace(/.*<!-- preview -->(.*)<!-- \/preview -->.*/, '$1');
+
+            post.previewIndexPade = post.preview.replace(
+                /\.? *<\/p> *$/,
+                '&hellip; <a href="' + post.link + '">Read more</a></p>'
+            );
+
+            // for google
+            post.article = post.article
+                .replace(/\n/g, ' ')
+                .replace(
+                    /(.*)<!-- preview -->(.*)<!-- \/preview -->(.*)/g,
+                    '<span itemprop="headline">$2</span> <span itemprop="articleBody">$3</span>'
+                );
 
             return post;
         })
@@ -189,7 +201,7 @@ gulp.task('default', ['css', 'renderer'], function () {
     });
 
     gulp.watch('../_posts/*.md', ['renderer']);
-    gulp.watch([themePath + '/**/*.html', themePath + '/*.html'], ['renderer']);
+    gulp.watch([themePath + '/**/*.html', themePath + '/**/*.xml', themePath + '/*.html'], ['renderer']);
     gulp.watch([themePath + '/scss/*.scss', './node_modules/normalize.css/normalize.css'], ['css']);
     gulp.watch(['**/*.html', '**/*.css', 'img/**/*'], {cwd: '../'}, reload);
 });

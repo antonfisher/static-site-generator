@@ -17,10 +17,11 @@
         <link rel="alternate" type="text/html" href="http://{{config.url}}{{post.link}}"/>
         <id>urn:uuid:{{post.uuid}}</id>
         <updated>{{post.datetimeISO}}</updated>
-        <summary></summary>
+        <summary>{{post.preview}}</summary>
         <content type="xhtml">
             <div xmlns="http://www.w3.org/1999/xhtml">
-                {{post.previewRSS}}
+                <img src="{{post.image}}" />
+                {{post.preview}}...
             </div>
         </content>
         <author>

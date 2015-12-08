@@ -157,6 +157,11 @@ header {
         margin: 0 0 0 15px;
         border: 1px solid #f5f5f5;
     }
+
+    p {
+        line-height: 1.5em;
+        margin: 1em 0;
+    }
 }
 
 .about-items {
@@ -190,6 +195,7 @@ article {
 
     img {
         width: 100%;
+        margin-top: 20px;
     }
 
     h1 {
