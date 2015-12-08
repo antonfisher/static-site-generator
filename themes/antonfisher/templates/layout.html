@@ -22,9 +22,9 @@
 </head>
 <body>
 <div class="container">
-    <header>
-        <a href="/" title="Home">
-            <div class="title">{{config.name}}<span>&#8217;s notes</span></div>
+    <header class="title" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <a href="/" class="title" title="Home">
+            <span itemprop="name">{{config.name}}</span><span class="notes">&#8217;s notes</span>
         </a>
 
         <div class="link">
@@ -33,7 +33,8 @@
         <div class="link">
             <a href="/feed.xml" title="RSS feed link">rss</a>
         </div>
-        <a href="/about">
+
+        <a href="/about" itemprop="image">
             <img src="https://avatars.githubusercontent.com/u/599352?s=50" title="Contact information" alt="About">
         </a>
 
@@ -60,12 +61,12 @@
     </footer>
 </div>
 </body>
-<!--<script>-->
-<!--(function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {-->
-<!--(i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),-->
-<!--m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)-->
-<!--})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');-->
-<!--ga('create', '{{config.ga}}', 'antonfisher.com');-->
-<!--ga('send', 'pageview');-->
-<!--</script>-->
+<script>
+    (function (i, s, o, g, r, a, m) {i['GoogleAnalyticsObject'] = r;i[r] = i[r] || function () {
+    (i[r].q = i[r].q || []).push(arguments)}, i[r].l = 1 * new Date();a = s.createElement(o),
+    m = s.getElementsByTagName(o)[0];a.async = 1;a.src = g;m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', '{{config.ga}}', 'antonfisher.com');
+    ga('send', 'pageview');
+</script>
 </html>

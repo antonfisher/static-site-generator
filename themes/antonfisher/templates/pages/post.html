@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <article>
-        <h1>{{post.title}}</h1>
-        <time datetime="{{post.date}}">{{post.date}}</time>
-        <p>{{post.article}}</p>
+    <article itemscope itemtype="http://schema.org/Article">
+        <h1 itemprop="name">{{post.title}}</h1>
+        <time itemprop="datePublished" content="{{post.date}}" datetime="{{post.date}}">{{post.date}}</time>
+        <span itemprop="articleBody">{{post.article}}</span>
     </article>
 {% endblock %}

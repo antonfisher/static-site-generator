@@ -117,6 +117,7 @@ gulp.task('renderer', function () {
 
             post.datetimeISO = formatDate(post.date);
             post.article = markdown.render(article);
+            post.article = post.article.replace(/<img /, '<img itemprop="image" '); // for google
             post.link = [
                 '/posts',
                 post.date.replace(/-/g, '/'),
