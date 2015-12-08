@@ -123,6 +123,7 @@ gulp.task('renderer', function () {
                 post.title.toLowerCase().replace(/[^\w]/g, '-')
             ].join('/');
             post.uuid = post.link.replace(/\//g, '-');
+            post.imagePreview = (post.imagePreview || post.image);
 
             post.preview = post.article
                 .replace(/\n/g, ' ')

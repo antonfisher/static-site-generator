@@ -153,6 +153,7 @@ header {
     img {
         float: right;
         width: 30%;
+        max-width: 300px;
         margin: 0 0 0 15px;
         border: 1px solid #f5f5f5;
     }
@@ -213,11 +214,12 @@ footer {
     color: $colorGray;
     border-top: 1px solid $colorBorder;
 
-    div {
+    nav {
+        display: block;
         float: left;
     }
 
-    div.right {
+    div {
         float: right;
         text-align: left;
     }
