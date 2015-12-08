@@ -63,7 +63,6 @@ pre {
     border: 1px dotted #dddddd;
     padding: 12px 15px;
     border-radius: 5px;
-    font-size: 0.85em;
     margin: 0 0 2em 0;
 }
 
@@ -202,10 +201,14 @@ article {
         padding: 0.5em 0 0 0;
         margin: 10px 0 0 0;
     }
+
+    pre {
+        font-size: 0.85em;
+    }
 }
 
 footer {
-    padding: 10px 0 0 1px;
+    padding: 5px 0 0 1px;
     font-size: 0.7em;
     color: $colorGray;
     border-top: 1px solid $colorBorder;
