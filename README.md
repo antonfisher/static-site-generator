@@ -38,6 +38,7 @@ Uses for: [http://antonfisher.github.io](http://antonfisher.github.io)
 - [ ] Tags support
 - [ ] Comments
 - [ ] Pagination
+- [ ] Update default theme
 
 ## License
 Copyright (c) 2015 Anton Fisher <a.fschr@gmail.com>
