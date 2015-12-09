@@ -139,11 +139,12 @@ header {
 
 .content {
     clear: both;
-    padding: 35px 0 25px 0;
+    padding: 25px 0 15px 0;
 }
 
 .post-item {
-    padding: 13px 0;
+    padding: 25px 0;
+    border-bottom: 1px dotted #eeeeee;
 
     time {
         color: $colorGray;
@@ -162,6 +163,9 @@ header {
         line-height: 1.5em;
         margin: 1em 0;
     }
+}
+.post-item:last-child {
+    border-bottom: 0;
 }
 
 .about-items {

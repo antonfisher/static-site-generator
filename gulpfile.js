@@ -83,6 +83,7 @@ gulp.task('renderer', function () {
     };
 
     var posts = fs.readdirSync(postsSourcesPath)
+        .reverse()
         .map(function (fileName) {
             var post;
             var fileContent = fs.readFileSync(path.join(postsSourcesPath, fileName), {encoding: 'utf8'});
