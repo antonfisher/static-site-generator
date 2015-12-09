@@ -32,7 +32,7 @@ Uses for: [http://antonfisher.github.io](http://antonfisher.github.io)
 - [x] Copy all theme files
 - [x] Post summary on index page
 - [x] GA config
-- [ ] Host in config
+- [x] Host in config
 - [ ] 404 page
 - [ ] Check localhost for GA
 - [ ] Tags support
