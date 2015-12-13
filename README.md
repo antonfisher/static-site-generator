@@ -1,10 +1,10 @@
 # Static Site Generator
 
-Uses for: [http://antonfisher.github.io](http://antonfisher.github.io)
+Uses for: [http://antonfisher.com](http://antonfisher.com)
 
 ## Features
-* Static HTML generation (Index, Post, About pages)
-* Markdown
+* Static HTML generation (Index, Posts, About pages)
+* Markdown for posts
 * Nunjucks Templates for theming
 * Gulp based
 * RSS feed generator 
@@ -34,11 +34,12 @@ Uses for: [http://antonfisher.github.io](http://antonfisher.github.io)
 - [x] GA config
 - [x] Host in config
 - [ ] 404 page
-- [ ] Check localhost for GA
 - [ ] Tags support
 - [ ] Comments
 - [ ] Pagination
 - [ ] Update default theme
+- [ ] Sitemap
+- [ ] Comments
 
 ## License
 Copyright (c) 2015 Anton Fisher <a.fschr@gmail.com>
