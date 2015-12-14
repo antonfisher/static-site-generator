@@ -121,7 +121,7 @@ gulp.task('renderer', function () {
             post.link = [
                 '/posts',
                 post.date.replace(/-/g, '/'),
-                post.title.toLowerCase().replace(/[^\w]/g, '-')
+                post.title.toLowerCase().replace(/[^\w]/g, '-').replace(/--+/g, '-').replace(/^(-*)|(-*)$/g, '')
             ].join('/');
             post.uuid = post.link.replace(/\//g, '-');
             post.imagePreview = (post.imagePreview || post.image);
