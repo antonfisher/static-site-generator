@@ -126,22 +126,18 @@ gulp.task('renderer', function () {
             post.uuid = post.link.replace(/\//g, '-');
             post.imagePreview = (post.imagePreview || post.image);
 
-            post.preview = post.article
-                .replace(/\n/g, ' ')
-                .replace(/.*<!-- preview -->(.*)<!-- \/preview -->.*/, '$1');
+            post.preview = post.article.replace(/[\s\S]*<!-- preview -->([\s\S]*)<!-- \/preview -->[\s\S]*/g, '$1');
 
             post.previewIndexPade = post.preview.replace(
-                /\.? *<\/p> *$/,
-                '&hellip; <a href="' + post.link + '">Read more</a></p>'
+                /([\s\S]*)<\/p> */g,
+                '$1&hellip; <a href="' + post.link + '">Read more</a></p>'
             );
 
             // for google
-            post.article = post.article
-                .replace(/\n/g, ' ')
-                .replace(
-                    /(.*)<!-- preview -->(.*)<!-- \/preview -->(.*)/g,
-                    '<span itemprop="headline">$2</span> <span itemprop="articleBody">$3</span>'
-                );
+            post.article = post.article.replace(
+                /([\s\S]*)<!-- preview -->([\s\S]*)<!-- \/preview -->([\s\S]*)/g,
+                '<span itemprop="headline">$2</span> <span itemprop="articleBody">$3</span>'
+            );
 
             return post;
         })
