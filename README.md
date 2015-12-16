@@ -40,6 +40,7 @@ Uses for: [http://antonfisher.com](http://antonfisher.com)
 - [ ] Update default theme
 - [ ] Sitemap
 - [ ] Comments
+- [ ] Check same posts links
 
 ## License
 Copyright (c) 2015 Anton Fisher <a.fschr@gmail.com>
