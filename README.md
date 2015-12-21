@@ -33,7 +33,7 @@ Uses for: [http://antonfisher.com](http://antonfisher.com)
 - [x] Post summary on index page
 - [x] GA config
 - [x] Host in config
-- [ ] 404 page
+- [x] Generate meta
 - [ ] Tags support
 - [ ] Comments
 - [ ] Pagination
@@ -41,6 +41,7 @@ Uses for: [http://antonfisher.com](http://antonfisher.com)
 - [ ] Sitemap
 - [ ] Comments
 - [ ] Check same posts links
+- [ ] 404 page
 
 ## License
 Copyright (c) 2015 Anton Fisher <a.fschr@gmail.com>

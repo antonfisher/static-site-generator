@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <title>{{config.name}}'s notes</title>
-    <meta name="description" content="{{config.description}}">
+    <meta name="description" content="{{post.metaDescription | default(config.description)}}">
     <meta name="author" content="{{config.name}}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/all.min.css">
