@@ -55,7 +55,7 @@ h1 {
 
 h2 {
     font-size: 1.7em;
-    margin: 0;
+    margin: 35px 0 0 0;
 }
 
 pre {
@@ -163,6 +163,10 @@ header {
         line-height: 1.5em;
         margin: 1em 0;
     }
+
+    h2 {
+        margin: 0;
+    }
 }
 .post-item:last-child {
     border-bottom: 0;
@@ -198,8 +202,8 @@ article {
     }
 
     img {
-        width: 100%;
-        margin-top: 20px;
+        //width: 100%;
+        margin: 20px 0;
     }
 
     h1 {
@@ -209,6 +213,10 @@ article {
 
     pre {
         font-size: 0.85em;
+    }
+
+    li {
+        padding: 5px 0;
     }
 }
 
