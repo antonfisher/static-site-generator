@@ -31,12 +31,12 @@ Uses for: [http://antonfisher.com](http://antonfisher.com)
 ## Configuration
 ``` json
 {
-  "theme": "default",               // 'default' or 'antonfisher'
-  "name": "{NAME}",                 // author name
-  "email": "{EMAIL}",               // author email
-  "url": "{SITE}.com",              // blog address
-  "rssUUID": "{RSS-UUID}",          // guid for RSS feed
-  "description": "{DESCRIPTION}"    // default meta-description
+  "theme": "default",
+  "name": "{NAME}",
+  "email": "{EMAIL}",
+  "url": "{SITE}.com",
+  "rssUUID": "{RSS-UUID}",
+  "description": "{DEFAULT META DESCRIPTION}"
 }
 ```
 
