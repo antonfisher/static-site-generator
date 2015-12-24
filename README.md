@@ -10,12 +10,12 @@ Uses for: [http://antonfisher.com](http://antonfisher.com)
 * RSS feed generator 
 
 ## Usage
-* Create blog folder: `$mkdir myblog && cd myblog`
-* Create _.gitignore_ file: `$echo 'static-site-generator'>.gitignore`
-* Clone generator: `$git clone https://github.com/antonfisher/static-blog-generator.git`
-* Go to generator folder: `$cd static-blog-generator`
-* Install dependencies `$npm install`
-* Run generator `$gulp` or `$./node_modules/gulp/bin/gulp.js`
+* Create blog folder: `$ mkdir myblog && cd myblog`
+* Create _.gitignore_ file: `$ echo 'static-site-generator'>.gitignore`
+* Clone generator: `$ git clone https://github.com/antonfisher/static-blog-generator.git`
+* Go to generator folder: `$ cd static-blog-generator`
+* Install dependencies `$ npm install`
+* Run generator `$ gulp` or `$ ./node_modules/gulp/bin/gulp.js`
 
 ## Release History
 * 1.0.0 Initial release
