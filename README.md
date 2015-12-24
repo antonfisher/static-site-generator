@@ -29,6 +29,7 @@ Uses for: [http://antonfisher.com](http://antonfisher.com)
     `$ gulp` or `$ ./node_modules/gulp/bin/gulp.js`.
     
 ## Configuration
+File `_config.json`:
 ``` json
 {
   "theme": "default",
