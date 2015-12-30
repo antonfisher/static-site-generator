@@ -136,7 +136,7 @@ gulp.task('renderer', function () {
             // for google
             post.article = post.article.replace(
                 /([\s\S]*)<!-- preview -->([\s\S]*)<!-- \/preview -->([\s\S]*)/g,
-                '<span itemprop="headline">$2</span> <span itemprop="articleBody">$3</span>'
+                '<span itemprop="headline"><p>$2</p></span> <span itemprop="articleBody">$3</span>'
             );
 
             return post;

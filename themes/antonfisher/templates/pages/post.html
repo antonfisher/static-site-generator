@@ -4,7 +4,9 @@
 <article itemscope itemtype="http://schema.org/Article">
     <h1 itemprop="name">{{post.title}}</h1>
     <time itemprop="datePublished" content="{{post.date}}" datetime="{{post.date}}">{{post.date}}</time>
+    <div class="clear"></div>
     <img itemprop="image" src="{{post.image}}">
+    <div class="clear"></div>
     {{post.article}}
 </article>
 {% endblock %}
