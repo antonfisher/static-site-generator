@@ -5,8 +5,29 @@
     <h1 itemprop="name">{{post.title}}</h1>
     <time itemprop="datePublished" content="{{post.date}}" datetime="{{post.date}}">{{post.date}}</time>
     <div class="clear"></div>
+
     <img itemprop="image" src="{{post.image}}">
     <div class="clear"></div>
+
     {{post.article}}
 </article>
+
+<div class="comments">
+    <b class="label">Comments:</b>
+    <div id="disqus_thread"></div>
+    <script>
+        if (window.location.hostname !== 'localhost') {
+            var disqus_config = function () {
+                this.page.url = 'http://antonfisher.com{{post.link}}';
+                this.page.identifier = '{{post.date}}';
+            };
+            (function () {
+                var d = document, s = d.createElement('script');
+                s.src = '//antonfishercom.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        }
+    </script>
+</div>
 {% endblock %}

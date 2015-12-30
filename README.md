@@ -58,12 +58,12 @@ File `_config.json`:
 - [x] GA config
 - [x] Host in config
 - [x] Generate meta
+- [x] Comments
 - [ ] Tags support
 - [ ] Comments
 - [ ] Pagination
 - [ ] Update default theme
 - [ ] Sitemap
-- [ ] Comments
 - [ ] Check same posts links
 - [ ] 404 page
 
