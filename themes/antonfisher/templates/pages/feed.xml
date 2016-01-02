@@ -20,7 +20,7 @@
         <summary>{{post.preview}}</summary>
         <content type="xhtml">
             <div xmlns="http://www.w3.org/1999/xhtml">
-                <img src="{{post.image}}" />
+                <img src="{{config.url}}{{post.image}}" />
                 {{post.preview}}...
             </div>
         </content>
