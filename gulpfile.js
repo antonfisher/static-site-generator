@@ -166,7 +166,10 @@ gulp.task('renderer', function () {
 
     gulp.src(themePath + '/templates/pages/about.html')
         .pipe(nunjucksRender({
-            config: config
+            config: config,
+            post: {
+                title: 'About'
+            }
         }))
         .pipe(rename('index.html'))
         .pipe(gulp.dest('../about'))
