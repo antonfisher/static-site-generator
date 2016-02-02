@@ -4,6 +4,7 @@ Markdown based static blog generator.
 Uses for: [http://antonfisher.com](http://antonfisher.com)
 
 ## Features
+
 * Static HTML generation (Index, Posts, About pages)
 * Markdown for posts
 * Nunjucks Templates for theming
@@ -11,6 +12,7 @@ Uses for: [http://antonfisher.com](http://antonfisher.com)
 * RSS feed generator.
 
 ## Usage
+
 * Create blog folder:
     `$ mkdir myblog && cd myblog`
 * Create _.gitignore_ file:
@@ -29,6 +31,7 @@ Uses for: [http://antonfisher.com](http://antonfisher.com)
     `$ gulp` or `$ ./node_modules/gulp/bin/gulp.js`.
     
 ## Configuration
+
 File `_config.json`:
 ``` json
 {
@@ -42,15 +45,17 @@ File `_config.json`:
 ```
 
 ## Release History
+
 * 1.0.0 Initial release
     * Gulp tasks
     * HTML generator
     * About page
     * RSS feed generator
     * Config file
-    * Themes.
+    * Themes
 
 ## ToDo
+
 - [x] Config example
 - [x] Themes images
 - [x] Copy all theme files
@@ -59,15 +64,15 @@ File `_config.json`:
 - [x] Host in config
 - [x] Generate meta
 - [x] Comments
+- [x] Sitemap
 - [ ] Tags support
-- [ ] Comments
 - [ ] Pagination
 - [ ] Update default theme
-- [ ] Sitemap
 - [ ] Check same posts links
 - [ ] 404 page
 
 ## License
+
 Copyright (c) 2015 Anton Fisher <a.fschr@gmail.com>
 
 MIT License. Free use and change.

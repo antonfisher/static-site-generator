@@ -182,6 +182,16 @@ gulp.task('renderer', function () {
         .pipe(gulp.dest('../'))
         .pipe(reload({stream: true}));
 
+    gulp.src(themePath + '/templates/pages/sitemap.xml')
+        .pipe(nunjucksRender({
+            config: config,
+            nowDatetimeISO: formatDate(),
+            posts: posts
+        }))
+        .pipe(rename('sitemap.xml'))
+        .pipe(gulp.dest('../'))
+        .pipe(reload({stream: true}));
+
     return gulp.src(themePath + '/templates/pages/index.html')
         .pipe(nunjucksRender({
             config: config,
