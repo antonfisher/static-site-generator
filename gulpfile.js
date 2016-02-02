@@ -122,8 +122,8 @@ gulp.task('renderer', function () {
                 '/posts',
                 post.date.replace(/-/g, '/'),
                 post.title.toLowerCase().replace(/[^\w]/g, '-').replace(/--+/g, '-').replace(/^(-*)|(-*)$/g, '')
-            ].join('/');
-            post.uuid = post.link.replace(/\//g, '-');
+            ].join('/') + '/';
+            post.uuid = post.link.replace(/\//g, '-').replace(/-$/, '');
             post.imagePreview = (post.imagePreview || post.image);
 
             post.preview = post.article.replace(/[\s\S]*<!-- preview -->([\s\S]*)<!-- \/preview -->[\s\S]*/g, '$1');
