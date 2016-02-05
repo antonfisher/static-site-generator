@@ -22,4 +22,9 @@
     </url>
     {% endfor %}
 
+    <url>
+        <loc>{{config.url}}/extjs4-sandbox/</loc>
+        <lastmod>2016-02-01T00:00:00Z</lastmod>
+    </url>
+
 </urlset>
