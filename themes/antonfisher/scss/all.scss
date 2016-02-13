@@ -1,6 +1,7 @@
 $colorText: #444444;
 $colorGray: #999999;
 $colorBorder: #e0e0e0;
+$colorBorderLight: #e6e6e6;
 $colorLink: #556699;
 $colorLinkHover: #6677bb;
 
@@ -71,7 +72,7 @@ span.devider {
     border: 0;
     border-right: 1px solid $colorBorder;
     height: 100%;
-    width: 0px;
+    width: 0;
     margin: 0 5px;
 }
 
@@ -230,14 +231,26 @@ article {
     }
 }
 
-.comments {
-    margin: 45px 0;
-    border-top: 1px solid $colorBorder;
+
+.top-border-block {
+    border-top: 1px solid $colorBorderLight;
 
     .label {
         display: inline-block;
         margin: 15px 1px;
     }
+}
+
+.share-buttons {
+    margin: 50px 0 0 0;
+
+    .twitter-share-button {
+        margin: 0 0 -4px 9px;
+    }
+}
+
+.comments {
+    margin: 10px 0 45px 0;
 
     #disqus_thread {
         margin: 0;
@@ -290,7 +303,6 @@ $icon-linkedin: "\e90c";
 .icon {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'icomoon' !important;
-    speak: none;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;

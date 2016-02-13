@@ -4,5 +4,7 @@
   "email": "{EMAIL}",
   "url": "{SITE}.com",
   "rssUUID": "{RSS-UUID}",
-  "description": "{DESCRIPTION}"
+  "description": "{DESCRIPTION}",
+  "twitter": "{TWITTER_NAME}",
+  "ga": "{GA-CODE}"
 }
