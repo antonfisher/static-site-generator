@@ -4,6 +4,13 @@
 <article itemscope itemtype="http://schema.org/Article">
     <h1 itemprop="name">{{post.title}}</h1>
     <time itemprop="datePublished" content="{{post.date}}" datetime="{{post.date}}">{{post.date}}</time>
+
+    <span class="tags">
+    {% for tag in post.tags %}
+        <a href="">{{tag}}</a>
+    {% endfor %}
+    </span>
+
     <div class="clear"></div>
 
     <img itemprop="image" src="{{post.image}}">

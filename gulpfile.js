@@ -154,6 +154,8 @@ gulp.task('renderer', function () {
     nunjucksRender.nunjucks.configure([themePath + '/templates']);
 
     posts.map(function (post) {
+        post.tags = (post.tags ? post.tags.split(',') : []);
+
         return gulp.src(themePath + '/templates/pages/post.html')
             .pipe(nunjucksRender({
                 config: config,

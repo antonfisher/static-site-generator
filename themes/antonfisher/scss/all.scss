@@ -25,19 +25,20 @@ body {
 a {
     text-decoration: none;
     color: $colorLink;
-}
 
-a:visited, a:hover {
-    color: $colorLinkHover;
-}
+    &:visited, &:hover {
+        color: $colorLinkHover;
+    }
 
-a:hover {
-    text-decoration: underline;
+    &:hover {
+        text-decoration: underline;
 
-    h1, .icon {
-        text-decoration: none;
+        h1, .icon {
+            text-decoration: none;
+        }
     }
 }
+
 
 hr {
     border: 0;
@@ -101,9 +102,10 @@ header {
         border-radius: 5px;
         transition: 0.15s ease-in-out;
         margin: 0 0 3px 3px;
-    }
-    img:hover {
-        transform: rotate(-3deg);
+
+        &:hover {
+            transform: rotate(-3deg);
+        }
     }
 
     .link {
@@ -169,6 +171,7 @@ header {
         margin: 0;
     }
 }
+
 .post-item:last-child {
     border-bottom: 0;
 }
@@ -229,8 +232,24 @@ article {
         border-radius: 3px;
         padding: 1px 4px;
     }
-}
 
+    span.tags {
+        display: inline-block;
+        font-size: 0.7em;
+        padding-left: 3px;
+        margin-left: 5px;
+        border-left: 1px solid $colorBorderLight;
+
+        a {
+            color: #BBBBDD;
+            padding-left: 6px;
+
+            &:hover {
+                color: $colorLinkHover;
+            }
+        }
+    }
+}
 
 .top-border-block {
     border-top: 1px solid $colorBorderLight;
@@ -291,8 +310,8 @@ $icon-linkedin: "\e90c";
 
 @font-face {
     font-family: 'icomoon';
-    src:url('/resources/fonts/icomoon.eot?kokoko');
-    src:url('/resources/fonts/icomoon.eot?kokoko#iefix') format('embedded-opentype'),
+    src: url('/resources/fonts/icomoon.eot?kokoko');
+    src: url('/resources/fonts/icomoon.eot?kokoko#iefix') format('embedded-opentype'),
     url('/resources/fonts/icomoon.ttf?kokoko') format('truetype'),
     url('/resources/fonts/icomoon.woff?kokoko') format('woff'),
     url('/resources/fonts/icomoon.svg?kokoko#icomoon') format('svg');
@@ -317,36 +336,47 @@ $icon-linkedin: "\e90c";
 .icon-home3:before {
     content: "\e900";
 }
+
 .icon-envelop:before {
     content: "\e901";
 }
+
 .icon-mobile:before {
     content: "\e902";
 }
+
 .icon-earth:before {
     content: "\e90d";
 }
+
 .icon-checkbox-checked:before {
     content: "\e903";
 }
+
 .icon-checkbox-unchecked:before {
     content: "\e904";
 }
+
 .icon-terminal:before {
     content: "\e905";
 }
+
 .icon-mail:before {
     content: "\e907";
 }
+
 .icon-twitter:before {
     content: "\e909";
 }
+
 .icon-github:before {
     content: "\e90a";
 }
+
 .icon-skype:before {
     content: "\e90b";
 }
+
 .icon-linkedin:before {
     content: "\e90c";
 }
@@ -360,6 +390,7 @@ $icon-linkedin: "\e90c";
     src: local('Ubuntu'), url(http://fonts.gstatic.com/s/ubuntu/v8/ODszJI8YqNw8V2xPulzjO_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
     unicode-range: U+0460-052F, U+20B4, U+2DE0-2DFF, U+A640-A69F;
 }
+
 /* cyrillic */
 @font-face {
     font-family: 'Ubuntu';
@@ -368,6 +399,7 @@ $icon-linkedin: "\e90c";
     src: local('Ubuntu'), url(http://fonts.gstatic.com/s/ubuntu/v8/iQ9VJx1UMASKNiGywyyCXvesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
     unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
+
 /* greek-ext */
 @font-face {
     font-family: 'Ubuntu';
@@ -376,6 +408,7 @@ $icon-linkedin: "\e90c";
     src: local('Ubuntu'), url(http://fonts.gstatic.com/s/ubuntu/v8/WkvQmvwsfw_KKeau9SlQ2_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
     unicode-range: U+1F00-1FFF;
 }
+
 /* greek */
 @font-face {
     font-family: 'Ubuntu';
@@ -384,6 +417,7 @@ $icon-linkedin: "\e90c";
     src: local('Ubuntu'), url(http://fonts.gstatic.com/s/ubuntu/v8/gYAtqXUikkQjyJA1SnpDLvesZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
     unicode-range: U+0370-03FF;
 }
+
 /* latin-ext */
 @font-face {
     font-family: 'Ubuntu';
@@ -392,6 +426,7 @@ $icon-linkedin: "\e90c";
     src: local('Ubuntu'), url(http://fonts.gstatic.com/s/ubuntu/v8/Wu5Iuha-XnKDBvqRwQzAG_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
     unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
+
 /* latin */
 @font-face {
     font-family: 'Ubuntu';
