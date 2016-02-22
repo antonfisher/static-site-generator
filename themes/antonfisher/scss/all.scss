@@ -60,6 +60,12 @@ h2 {
     margin: 35px 0 0 0;
 }
 
+h3 {
+    span {
+        font-weight: normal;
+    }
+}
+
 pre {
     background-color: #fafafa;
     border: 1px dotted #dddddd;
@@ -143,6 +149,21 @@ header {
 .content {
     clear: both;
     padding: 25px 0 15px 0;
+
+    ul.tags {
+        list-style-type: none;
+        padding-left: 4px;
+
+        li {
+            .count {
+                color: $colorGray;
+                font-size: 0.7em;
+                display: inline-block;
+                width: 30px;
+                text-align: right;
+            }
+        }
+    }
 }
 
 .post-item {
@@ -234,18 +255,20 @@ article {
     }
 
     span.tags {
-        display: inline-block;
         font-size: 0.7em;
-        padding-left: 3px;
+        padding-left: 8px;
         margin-left: 5px;
         border-left: 1px solid $colorBorderLight;
+        color: $colorGray;
 
         a {
             color: #BBBBDD;
-            padding-left: 6px;
+            padding-left: 4px;
+            text-decoration: none;
 
             &:hover {
                 color: $colorLinkHover;
+                text-decoration: underline;
             }
         }
     }

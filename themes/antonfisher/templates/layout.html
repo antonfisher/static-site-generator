@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title lang="en">{{config.name}}'s notes{{' / ' + post.title if post else ''}}</title>
+    <title lang="en">{{config.name}}'s notes{{' / ' + title if title else ''}}</title>
     <meta name="description" content="{{post.metaDescription | default(config.description)}}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="{{config.name}}">

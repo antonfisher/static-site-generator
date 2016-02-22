@@ -65,7 +65,7 @@ File `_config.json`:
 - [x] Generate meta
 - [x] Comments
 - [x] Sitemap
-- [ ] Tags support
+- [x] Tags support
 - [ ] Pagination
 - [ ] Update default theme
 - [ ] Check same posts links

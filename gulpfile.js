@@ -82,6 +82,11 @@ gulp.task('renderer', function () {
         return (new Date(dateString || +(new Date()))).toISOString().replace(/\.[0-9]+/, '');
     };
 
+    var urlify = function (string) {
+        return (string || '').toLowerCase().replace(/[^\w]/g, '-').replace(/--+/g, '-').replace(/^(-*)|(-*)$/g, '');
+    };
+
+    var tagsMap = {};
     var posts = fs.readdirSync(postsSourcesPath)
         .reverse()
         .map(function (fileName) {
@@ -119,10 +124,10 @@ gulp.task('renderer', function () {
             post.article = markdown.render(article);
             post.datetimeISO = formatDate(post.date);
             post.link = [
-                '/posts',
-                post.date.replace(/-/g, '/'),
-                post.title.toLowerCase().replace(/[^\w]/g, '-').replace(/--+/g, '-').replace(/^(-*)|(-*)$/g, '')
-            ].join('/') + '/';
+                    '/posts',
+                    post.date.replace(/-/g, '/'),
+                    urlify(post.title)
+                ].join('/') + '/';
             post.uuid = post.link.replace(/\//g, '-').replace(/-$/, '');
             post.imagePreview = (post.imagePreview || post.image);
 
@@ -139,6 +144,19 @@ gulp.task('renderer', function () {
                 '<span itemprop="headline"><p>$2</p></span> <span itemprop="articleBody">$3</span>'
             );
 
+            post.tags = (post.tags ? post.tags.split(',') : []).map(function (tag) {
+                var obj = {
+                    title: tag,
+                    link: ('/tags/' + urlify(tag) + '/')
+                };
+
+                tagsMap[tag] = (tagsMap[tag] || obj);
+                tagsMap[tag].posts = (tagsMap[tag].posts || []);
+                tagsMap[tag].posts.push(post);
+
+                return obj;
+            });
+
             return post;
         })
         .filter(function (post) {
@@ -146,6 +164,7 @@ gulp.task('renderer', function () {
         });
 
     rimraf.sync('../posts/*');
+    rimraf.sync('../tags/*');
 
     gulp.src(themePath + '/resources/**/*')
         .pipe(gulp.dest('../resources/'))
@@ -154,10 +173,9 @@ gulp.task('renderer', function () {
     nunjucksRender.nunjucks.configure([themePath + '/templates']);
 
     posts.map(function (post) {
-        post.tags = (post.tags ? post.tags.split(',') : []);
-
-        return gulp.src(themePath + '/templates/pages/post.html')
+        gulp.src(themePath + '/templates/pages/post.html')
             .pipe(nunjucksRender({
+                title: post.title,
                 config: config,
                 post: post
             }))
@@ -166,12 +184,42 @@ gulp.task('renderer', function () {
             .pipe(reload({stream: true}));
     });
 
+    var tags = [];
+    for (var key in tagsMap) {
+        if (tagsMap.hasOwnProperty(key)) {
+            var tag = tagsMap[key];
+
+            tags.push(tag);
+            gulp.src(themePath + '/templates/pages/posts.html')
+                .pipe(nunjucksRender({
+                    title: ('Tag: ' + tag.title),
+                    posts: tag.posts,
+                    config: config,
+                    tag: tag
+                }))
+                .pipe(rename('index.html'))
+                .pipe(gulp.dest(path.join('..', tag.link)))
+                .pipe(reload({stream: true}));
+        }
+    }
+
+    tags = tags.sort(function (a, b) {
+        return (a.posts.length > b.posts.length ? -1 : 1);
+    });
+
+    gulp.src(themePath + '/templates/pages/tags.html')
+        .pipe(nunjucksRender({
+            config: config,
+            tags: tags
+        }))
+        .pipe(rename('index.html'))
+        .pipe(gulp.dest('../tags'))
+        .pipe(reload({stream: true}));
+
     gulp.src(themePath + '/templates/pages/about.html')
         .pipe(nunjucksRender({
             config: config,
-            post: {
-                title: 'About'
-            }
+            title: 'About'
         }))
         .pipe(rename('index.html'))
         .pipe(gulp.dest('../about'))
@@ -197,11 +245,12 @@ gulp.task('renderer', function () {
         .pipe(gulp.dest('../'))
         .pipe(reload({stream: true}));
 
-    return gulp.src(themePath + '/templates/pages/index.html')
+    return gulp.src(themePath + '/templates/pages/posts.html')
         .pipe(nunjucksRender({
             config: config,
             posts: posts
         }))
+        .pipe(rename('index.html'))
         .pipe(gulp.dest('../'))
         .pipe(reload({stream: true}));
 });

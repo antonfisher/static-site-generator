@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2>Tags</h2>
+
+    {% if tags.length %}
+        <ul class="tags">
+        {% for tag in tags %}
+            <li><span class="count">{{tag.posts|length}} &times;</span> <a href="{{tag.link}}">{{tag.title}}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <div class="post-item">
+            Nothing there...
+        </div>
+    {% endif %}
+{% endblock %}
