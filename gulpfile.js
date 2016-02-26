@@ -8,10 +8,17 @@ var minify = require('gulp-minify-css');
 var Remarkable = require('remarkable');
 var highlightJs = require('highlight.js');
 var nunjucksRender = require('gulp-nunjucks-render');
+var prettify = require('gulp-jsbeautifier');
 var fs = require('fs');
 var path = require('path');
 var rimraf = require('rimraf');
 var reload = browserSync.reload;
+var prettifyConfig = {
+    indentSize: 4,
+    html: {
+        unformatted: ["code", "pre", "a", "sub", "sup", "b", "i", "u"]
+    }
+};
 
 nunjucksRender.nunjucks.configure({autoescape: false});
 
@@ -187,6 +194,7 @@ gulp.task('renderer', function () {
                     post: post
                 }
             }))
+            .pipe(prettify(prettifyConfig))
             .pipe(rename('index.html'))
             .pipe(gulp.dest(path.join('..', post.link)))
             .pipe(reload({stream: true}));
@@ -211,6 +219,7 @@ gulp.task('renderer', function () {
                         tag: tag
                     }
                 }))
+                .pipe(prettify(prettifyConfig))
                 .pipe(rename('index.html'))
                 .pipe(gulp.dest(path.join('..', tag.link)))
                 .pipe(reload({stream: true}));
@@ -232,6 +241,7 @@ gulp.task('renderer', function () {
                 tags: tags
             }
         }))
+        .pipe(prettify(prettifyConfig))
         .pipe(rename('index.html'))
         .pipe(gulp.dest('../tags'))
         .pipe(reload({stream: true}));
@@ -247,6 +257,7 @@ gulp.task('renderer', function () {
                 title: 'About'
             }
         }))
+        .pipe(prettify(prettifyConfig))
         .pipe(rename('index.html'))
         .pipe(gulp.dest('../about'))
         .pipe(reload({stream: true}));
@@ -295,6 +306,7 @@ gulp.task('renderer', function () {
             }
         }))
         .pipe(rename('index.html'))
+        .pipe(prettify(prettifyConfig))
         .pipe(gulp.dest('../'))
         .pipe(reload({stream: true}));
 });
