@@ -16,7 +16,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-jsbeautifier": "^1.0.2",
     "gulp-minify-css": "^1.2.1",
-    "gulp-nunjucks-render": "*",
+    "gulp-nunjucks-render": "git+https://git@github.com/antonfisher/gulp-nunjucks-render.git",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.1.0",
     "highlight.js": "^9.0.0",

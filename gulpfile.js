@@ -8,19 +8,10 @@ var minify = require('gulp-minify-css');
 var Remarkable = require('remarkable');
 var highlightJs = require('highlight.js');
 var nunjucksRender = require('gulp-nunjucks-render');
-var prettify = require('gulp-jsbeautifier');
 var fs = require('fs');
 var path = require('path');
 var rimraf = require('rimraf');
 var reload = browserSync.reload;
-var prettifyConfig = {
-    indentSize: 4,
-    html: {
-        unformatted: ["code", "pre", "a", "sub", "sup", "b", "i", "u"]
-    }
-};
-
-nunjucksRender.nunjucks.configure({autoescape: false});
 
 var markdown = new Remarkable({
     html: true,
@@ -65,6 +56,13 @@ try {
 
 var postsSourcesPath = '../_posts';
 var themePath = ('./themes/' + config.theme);
+
+nunjucksRender.setDefaults({
+    path: [themePath + '/templates'],
+    envOptions: {
+        autoescape: false
+    }
+});
 
 gulp.task('css', function () {
     var scssStream = gulp.src(themePath + '/scss/**/*.scss')
@@ -179,22 +177,15 @@ gulp.task('renderer', function () {
         .pipe(gulp.dest('../resources/'))
         .pipe(reload({stream: true}));
 
-    //nunjucksRender.nunjucks.configure([themePath + '/templates'], {autoescape: false});
-
     posts.map(function (post) {
         gulp.src(themePath + '/templates/pages/post.html')
             .pipe(nunjucksRender({
-                path: [themePath + '/templates'],
-                envOptions: {
-                    autoescape: false
-                },
                 data: {
                     title: post.title,
                     config: config,
                     post: post
                 }
             }))
-            .pipe(prettify(prettifyConfig))
             .pipe(rename('index.html'))
             .pipe(gulp.dest(path.join('..', post.link)))
             .pipe(reload({stream: true}));
@@ -208,10 +199,6 @@ gulp.task('renderer', function () {
             tags.push(tag);
             gulp.src(themePath + '/templates/pages/posts.html')
                 .pipe(nunjucksRender({
-                    path: [themePath + '/templates'],
-                    envOptions: {
-                        autoescape: false
-                    },
                     data: {
                         title: ('Tag: ' + tag.title),
                         posts: tag.posts,
@@ -219,7 +206,6 @@ gulp.task('renderer', function () {
                         tag: tag
                     }
                 }))
-                .pipe(prettify(prettifyConfig))
                 .pipe(rename('index.html'))
                 .pipe(gulp.dest(path.join('..', tag.link)))
                 .pipe(reload({stream: true}));
@@ -232,42 +218,28 @@ gulp.task('renderer', function () {
 
     gulp.src(themePath + '/templates/pages/tags.html')
         .pipe(nunjucksRender({
-            path: [themePath + '/templates'],
-            envOptions: {
-                autoescape: false
-            },
             data: {
                 config: config,
                 tags: tags
             }
         }))
-        .pipe(prettify(prettifyConfig))
         .pipe(rename('index.html'))
         .pipe(gulp.dest('../tags'))
         .pipe(reload({stream: true}));
 
     gulp.src(themePath + '/templates/pages/about.html')
         .pipe(nunjucksRender({
-            path: [themePath + '/templates'],
-            envOptions: {
-                autoescape: false
-            },
             data: {
                 config: config,
                 title: 'About'
             }
         }))
-        .pipe(prettify(prettifyConfig))
         .pipe(rename('index.html'))
         .pipe(gulp.dest('../about'))
         .pipe(reload({stream: true}));
 
     gulp.src(themePath + '/templates/pages/feed.xml')
         .pipe(nunjucksRender({
-            path: [themePath + '/templates'],
-            envOptions: {
-                autoescape: false
-            },
             data: {
                 config: config,
                 nowDatetimeISO: formatDate(),
@@ -280,10 +252,6 @@ gulp.task('renderer', function () {
 
     gulp.src(themePath + '/templates/pages/sitemap.xml')
         .pipe(nunjucksRender({
-            path: [themePath + '/templates'],
-            envOptions: {
-                autoescape: false
-            },
             data: {
                 config: config,
                 nowDatetimeISO: formatDate(),
@@ -296,17 +264,12 @@ gulp.task('renderer', function () {
 
     return gulp.src(themePath + '/templates/pages/posts.html')
         .pipe(nunjucksRender({
-            path: [themePath + '/templates'],
-            envOptions: {
-                autoescape: false
-            },
             data: {
                 config: config,
                 posts: posts
             }
         }))
         .pipe(rename('index.html'))
-        .pipe(prettify(prettifyConfig))
         .pipe(gulp.dest('../'))
         .pipe(reload({stream: true}));
 });
