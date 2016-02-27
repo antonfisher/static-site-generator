@@ -11,20 +11,20 @@
     "build": "./node_modules/.bin/gulp"
   },
   "dependencies": {
-    "browser-sync": "^2.10.0",
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-jsbeautifier": "^1.0.2",
-    "gulp-minify-css": "^1.2.1",
+    "browser-sync": "^2.x",
+    "gulp": "^3.x",
+    "gulp-concat": "^2.x",
+    "gulp-jsbeautifier": "^1.x",
+    "gulp-minify-css": "^1.x",
     "gulp-nunjucks-render": "git+https://git@github.com/antonfisher/gulp-nunjucks-render.git",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^2.1.0",
-    "highlight.js": "^9.0.0",
-    "js-beautify": "^1.6.2",
-    "merge-stream": "^1.0.0",
-    "normalize.css": "^3.0.3",
-    "remarkable": "^1.6.1",
-    "rimraf": "^2.4.4"
+    "gulp-rename": "^1.x",
+    "gulp-sass": "^2.x",
+    "highlight.js": "^9.x",
+    "js-beautify": "^1.x",
+    "merge-stream": "^1.x",
+    "normalize.css": "^3.x",
+    "remarkable": "^1.x",
+    "rimraf": "^2.x"
   },
   "author": {
     "name": "Anton Fisher",
