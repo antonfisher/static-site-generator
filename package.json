@@ -8,7 +8,7 @@
     "url": "git@github.com:antonfisher/static-blog-generator.git"
   },
   "scripts": {
-    "build": "./node_modules/.bin/gulp"
+    "start": "./node_modules/.bin/gulp"
   },
   "dependencies": {
     "browser-sync": "2.x",
