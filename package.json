@@ -10,6 +10,9 @@
   "scripts": {
     "start": "./node_modules/.bin/gulp"
   },
+  "engines": {
+    "node": "5"
+  },
   "dependencies": {
     "browser-sync": "2.x",
     "gulp": "3.x",
@@ -20,7 +23,7 @@
     "gulp-sass": "2.x",
     "highlight.js": "9.x",
     "merge-stream": "1.x",
-    "normalize.css": "3.x",
+    "normalize.css": "3.0.3",
     "remarkable": "1.x",
     "rimraf": "2.x"
   },
