@@ -4,7 +4,7 @@ var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var merge = require('merge-stream');
-var minify = require('gulp-minify-css');
+var cleanCss = require('gulp-clean-css');
 var Remarkable = require('remarkable');
 var highlightJs = require('highlight.js');
 var nunjucksRender = require('gulp-nunjucks-render');
@@ -79,7 +79,7 @@ gulp.task('css', function () {
 
     return merge(scssStream, cssStream)
         .pipe(concat('all.min.css'))
-        .pipe(minify())
+        .pipe(cleanCss())
         .pipe(gulp.dest('../css'))
         .pipe(reload({stream: true}));
 });
