@@ -25,6 +25,7 @@ body {
 a {
     text-decoration: none;
     color: $colorLink;
+    cursor: pointer;
 
     &:visited, &:hover {
         color: $colorLinkHover;
@@ -233,10 +234,11 @@ article {
 
     h1 {
         padding: 0.5em 0 0 0;
-        margin: 10px 0 0 0;
+        margin: 10px 0 1px 0;
     }
 
     pre {
+        overflow-x: auto;
         font-size: 0.97em;
 
         code {
