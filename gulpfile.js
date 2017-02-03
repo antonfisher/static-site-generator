@@ -43,7 +43,7 @@ var config = {
     "theme": "default",
     "name": "{NAME}",
     "email": "{EMAIL}",
-    "url": "http://{SITE}.com",
+    "url": "https://{SITE}.com",
     "rssUUID": "{RSS-UUID}",
     "description": "{DESCRIPTION}"
 };

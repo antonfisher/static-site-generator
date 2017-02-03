@@ -1,7 +1,7 @@
 # Static Site Generator
 
 Markdown based static blog generator.
-Uses for: [http://antonfisher.com](http://antonfisher.com)
+Uses for: [https://antonfisher.com](https://antonfisher.com)
 
 ## Features
 
