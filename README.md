@@ -28,7 +28,7 @@ Uses for: [https://antonfisher.com](https://antonfisher.com)
 * Install dependencies
     `$ npm install`
 * Run generator
-    `$ gulp` or `$ ./node_modules/gulp/bin/gulp.js`.
+    `$ npm start` or `$ ./node_modules/.bin/gulp`.
     
 ## Configuration
 

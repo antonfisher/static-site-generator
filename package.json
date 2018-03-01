@@ -11,10 +11,10 @@
     "start": "./node_modules/.bin/gulp"
   },
   "engines": {
-    "node": "5"
+    "node": "8.9"
   },
   "dependencies": {
-    "browser-sync": "2.18.12",
+    "browser-sync": "2.23.6",
     "gulp": "3.9.1",
     "gulp-concat": "2.6.1",
     "gulp-clean-css": "2.3.2",
@@ -23,9 +23,9 @@
     "gulp-sass": "3.1.0",
     "highlight.js": "9.12.0",
     "merge-stream": "1.0.1",
-    "normalize.css": "7.0.0",
+    "normalize.css": "8.0.0",
     "remarkable": "1.7.1",
-    "rimraf": "2.6.1"
+    "rimraf": "2.6.2"
   },
   "author": {
     "name": "Anton Fisher",
