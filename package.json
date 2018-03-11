@@ -8,10 +8,11 @@
     "url": "git@github.com:antonfisher/static-blog-generator.git"
   },
   "scripts": {
-    "start": "./node_modules/.bin/gulp"
+    "start": "./node_modules/.bin/gulp",
+    "watch": "./node_modules/.bin/gulp --watch"
   },
   "engines": {
-    "node": "8.9"
+    "node": "8.10"
   },
   "dependencies": {
     "browser-sync": "2.23.6",

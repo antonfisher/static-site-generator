@@ -16,7 +16,7 @@ body {
 
 .container {
     max-width: 790px;
-    margin: 39px auto;
+    margin: 35px auto;
     padding: 20px
 }
 
@@ -93,6 +93,17 @@ span.devider {
 header {
     border-bottom: 1px solid $colorBorder;
     clear: both;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding-top: 4px;
+    box-shadow: 0 4px 0 0 white;
+    z-index: 10;
+
+    &:not(:stuck)  {
+        background-color: red;
+    }
 
     a, a:hover, a:visited {
         color: $colorText;
@@ -180,8 +191,7 @@ header {
         float: right;
         width: 30%;
         max-width: 300px;
-        margin: 0 0 0 15px;
-        border: 1px solid #f5f5f5;
+        margin: 0 0 0 1em;
     }
 
     p {
