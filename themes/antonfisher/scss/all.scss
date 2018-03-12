@@ -8,7 +8,7 @@ $colorLinkHover: #6677bb;
 // --- layout ---
 
 body {
-    font-family: "Ubuntu", "Arial";
+    font-family: "-apple-system","Ubuntu","sans-serif";
     font-size: 1em;
     font-weight: normal;
     color: $colorText;
@@ -17,7 +17,7 @@ body {
 .container {
     max-width: 790px;
     margin: 35px auto;
-    padding: 20px
+    padding: 1.5em;
 }
 
 // --- common ---
@@ -187,16 +187,24 @@ header {
         font-size: 0.7em;
     }
 
-    img {
-        float: right;
-        width: 30%;
-        max-width: 300px;
-        margin: 0 0 0 1em;
-    }
-
     p {
         line-height: 1.5em;
         margin: 1em 0;
+
+        img {
+            width: 42%;
+            float: right;
+            margin-left: 1em;
+
+            @media screen and (max-width: 790px) {
+                width: 50%;
+            }
+            @media screen and (max-width: 550px) {
+                width: 100%;
+                float: none;
+                margin-left: 0;
+            }
+        }
     }
 
     h2 {
@@ -331,6 +339,7 @@ footer {
     }
 }
 
+// TODO: remove unused
 // --- icons ---
 $icon-home: "\e900";
 $icon-envelop: "\e901";
