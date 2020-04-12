@@ -8,11 +8,11 @@
 
     {% for post in posts %}
         <div class="post-item">
-            <a href="{{post.link}}"><h2>{{post.title}}</h2></a>
+            <a href="{{post.link}}" title="{{post.title}}"><h2>{{post.title}}</h2></a>
             <time datetime="{{post.date}}">{{post.date}}</time>
             <p>
                 <img src="{{post.imagePreview}}">
-                {{post.previewIndexPade}}
+                {{post.previewIndexPage}}
             </p>
             <div class="clear"></div>
         </div>

@@ -10,11 +10,6 @@
         <lastmod>{{nowDatetimeISO}}</lastmod>
     </url>
 
-    <url>
-        <loc>{{config.url}}/about/</loc>
-        <lastmod>{{nowDatetimeISO}}</lastmod>
-    </url>
-
     {% for post in posts %}
     <url>
         <loc>{{config.url}}{{post.link}}</loc>

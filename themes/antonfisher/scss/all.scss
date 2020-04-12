@@ -1,5 +1,5 @@
-$colorText: #444444;
-$colorGray: #999999;
+$colorText: #444;
+$colorTextLight: #999;
 $colorBorder: #e0e0e0;
 $colorBorderLight: #e6e6e6;
 $colorLink: #556699;
@@ -8,7 +8,7 @@ $colorLinkHover: #6677bb;
 // --- layout ---
 
 body {
-    font-family: "-apple-system","Ubuntu","sans-serif";
+    font-family: '-apple-system', 'Ubuntu', 'sans-serif';
     font-size: 1em;
     font-weight: normal;
     color: $colorText;
@@ -27,19 +27,20 @@ a {
     color: $colorLink;
     cursor: pointer;
 
-    &:visited, &:hover {
+    &:visited,
+    &:hover {
         color: $colorLinkHover;
     }
 
     &:hover {
         text-decoration: underline;
 
-        h1, .icon {
+        h1,
+        .icon {
             text-decoration: none;
         }
     }
 }
-
 
 hr {
     border: 0;
@@ -75,7 +76,7 @@ pre {
     margin: 0 0 2em 0;
 }
 
-span.devider {
+span.divider {
     display: inline-block;
     border: 0;
     border-right: 1px solid $colorBorder;
@@ -91,76 +92,78 @@ span.devider {
 // --- structure ---
 
 header {
-    border-bottom: 1px solid $colorBorder;
-    clear: both;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    background-color: white;
+    display: flex;
+    flex-direction: column;
     padding-top: 4px;
-    box-shadow: 0 4px 0 0 white;
-    z-index: 10;
+    border-bottom: 1px solid $colorBorder;
 
-    &:not(:stuck)  {
-        background-color: red;
-    }
+    .title-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        border-bottom: 1px solid $colorBorderLight;
 
-    a, a:hover, a:visited {
-        color: $colorText;
-        text-decoration: none;
-    }
+        .title {
+            .name {
+                font-size: 2.5em;
+                line-height: 1em;
+                font-weight: bold;
+                color: $colorText;
+                text-decoration: none;
+                margin-left: 3px;
 
-    a:hover {
-        color: #555555;
-        text-decoration: none;
-    }
+                &:hover {
+                    color: #555;
+                    text-decoration: none;
+                }
+            }
 
-    img {
-        float: right;
-        border-radius: 5px;
-        transition: 0.15s ease-in-out;
-        margin: 0 0 3px 3px;
+            .about {
+                color: $colorTextLight;
+                font-size: 0.85em;
+                padding: 7px 0 13px;
+                margin: 0;
+            }
+        }
 
-        &:hover {
-            transform: rotate(-3deg);
+        .photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 5px;
+            transition: 0.15s ease-in-out;
+            margin: 0 0 3px 13px;
+
+            &:hover {
+                transform: rotate(-3deg);
+            }
         }
     }
 
-    .link {
-        padding: 24px 20px 0 0;
-        float: left;
+    .links-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.9em;
 
-        a, a:visited {
-            color: #ccc;
-            font-size: 0.9em;
+        a {
+            padding: 13px 0;
+
+            .link-title {
+                display: none;
+
+                @media only screen and (min-width: 613px) {
+                    & {
+                        display: inline;
+                    }
+                }
+            }
         }
-
-        a:hover {
-            color: $colorLinkHover;
-            text-decoration: underline;
-        }
-    }
-
-    .title {
-        float: left;
-        padding: 0 20px 0 3px;
-        margin: 5px 0;
-        font-size: 2.5em;
-        line-height: 1em;
-        font-weight: bold;
-
-    }
-
-    .notes {
-        color: #666666;
-        font-size: 0.7em;
-        padding-left: 5px;
     }
 }
 
 .content {
     clear: both;
-    padding: 25px 0 15px 0;
+    padding: 30px 0 15px 0;
 
     ul.tags {
         list-style-type: none;
@@ -168,7 +171,7 @@ header {
 
         li {
             .count {
-                color: $colorGray;
+                color: $colorTextLight;
                 font-size: 0.7em;
                 display: inline-block;
                 width: 30px;
@@ -183,7 +186,7 @@ header {
     border-bottom: 1px dotted #eeeeee;
 
     time {
-        color: $colorGray;
+        color: $colorTextLight;
         font-size: 0.7em;
     }
 
@@ -216,19 +219,6 @@ header {
     border-bottom: 0;
 }
 
-.about-items {
-    padding: 0 0 10px 0;
-
-    a {
-        display: block;
-        margin: 10px 0;
-    }
-}
-
-.about-items {
-    padding-left: 10px;
-}
-
 article {
     a {
         text-decoration: underline;
@@ -240,7 +230,7 @@ article {
     }
 
     time {
-        color: $colorGray;
+        color: $colorTextLight;
         font-size: 0.7em;
         padding-left: 2px;
     }
@@ -284,10 +274,10 @@ article {
         padding-left: 8px;
         margin-left: 5px;
         border-left: 1px solid $colorBorderLight;
-        color: $colorGray;
+        color: $colorTextLight;
 
         a {
-            color: #BBBBDD;
+            color: #bbbbdd;
             padding-left: 4px;
             text-decoration: none;
 
@@ -308,16 +298,8 @@ article {
     }
 }
 
-.share-buttons {
-    margin: 50px 0 0 0;
-
-    .twitter-share-button {
-        margin: 0 0 -4px 9px;
-    }
-}
-
 .comments {
-    margin: 10px 0 45px 0;
+    margin: 50px 0 45px 0;
 
     #disqus_thread {
         margin: 0;
@@ -328,7 +310,7 @@ article {
 footer {
     padding: 5px 0 0 1px;
     font-size: 0.7em;
-    color: $colorGray;
+    color: $colorTextLight;
     border-top: 1px solid $colorBorder;
 
     nav {
@@ -342,35 +324,24 @@ footer {
     }
 }
 
-// TODO: remove unused
 // --- icons ---
-$icon-home: "\e900";
-$icon-envelop: "\e901";
-$icon-mobile: "\e902";
-$icon-earth: "\e90d";
-$icon-checkbox-checked: "\e903";
-$icon-checkbox-unchecked: "\e904";
-$icon-terminal: "\e905";
-$icon-mail: "\e907";
-$icon-twitter: "\e909";
-$icon-github: "\e90a";
-$icon-skype: "\e90b";
-$icon-linkedin: "\e90c";
-
 @font-face {
     font-family: 'icomoon';
-    src: url('/resources/fonts/icomoon.eot?kokoko');
-    src: url('/resources/fonts/icomoon.eot?kokoko#iefix') format('embedded-opentype'),
-    url('/resources/fonts/icomoon.ttf?kokoko') format('truetype'),
-    url('/resources/fonts/icomoon.woff?kokoko') format('woff'),
-    url('/resources/fonts/icomoon.svg?kokoko#icomoon') format('svg');
+    src: url('/resources/fonts/icomoon.eot?phtrx9');
+    src: url('/resources/fonts/icomoon.eot?phtrx9#iefix') format('embedded-opentype'),
+        url('/resources/fonts/icomoon.ttf?phtrx9') format('truetype'),
+        url('/resources/fonts/icomoon.woff?phtrx9') format('woff'),
+        url('/resources/fonts/icomoon.svg?phtrx9#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
+    font-display: block;
 }
 
-.icon {
+[class^='icon-'],
+[class*=' icon-'] {
     /* use !important to prevent issues with browser extensions that change fonts */
     font-family: 'icomoon' !important;
+    speak: none;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
@@ -382,52 +353,23 @@ $icon-linkedin: "\e90c";
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-home3:before {
-    content: "\e900";
-}
-
-.icon-envelop:before {
-    content: "\e901";
-}
-
-.icon-mobile:before {
-    content: "\e902";
-}
-
-.icon-earth:before {
-    content: "\e90d";
-}
-
-.icon-checkbox-checked:before {
-    content: "\e903";
-}
-
-.icon-checkbox-unchecked:before {
-    content: "\e904";
-}
-
-.icon-terminal:before {
-    content: "\e905";
-}
-
 .icon-mail:before {
-    content: "\e907";
+    content: '\ea83';
 }
-
+.icon-instagram:before {
+    content: '\ea92';
+}
 .icon-twitter:before {
-    content: "\e909";
+    content: '\ea96';
 }
-
+.icon-rss2:before {
+    content: '\ea9c';
+}
 .icon-github:before {
-    content: "\e90a";
+    content: '\eab0';
 }
-
-.icon-skype:before {
-    content: "\e90b";
-}
-
 .icon-linkedin:before {
-    content: "\e90c";
+    content: '\eac9';
 }
 
 // --- fonts ---
@@ -436,7 +378,9 @@ $icon-linkedin: "\e90c";
     font-family: 'Ubuntu';
     font-style: normal;
     font-weight: 400;
-    src: local('Ubuntu'), url(https://fonts.gstatic.com/s/ubuntu/v8/Wu5Iuha-XnKDBvqRwQzAG_esZW2xOQ-xsNqO47m55DA.woff2) format('woff2');
+    src: local('Ubuntu'),
+        url(https://fonts.gstatic.com/s/ubuntu/v8/Wu5Iuha-XnKDBvqRwQzAG_esZW2xOQ-xsNqO47m55DA.woff2)
+            format('woff2');
     unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
 
@@ -445,6 +389,8 @@ $icon-linkedin: "\e90c";
     font-family: 'Ubuntu';
     font-style: normal;
     font-weight: 400;
-    src: local('Ubuntu'), url(https://fonts.gstatic.com/s/ubuntu/v8/sDGTilo5QRsfWu6Yc11AXg.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    src: local('Ubuntu'),
+        url(https://fonts.gstatic.com/s/ubuntu/v8/sDGTilo5QRsfWu6Yc11AXg.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074,
+        U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }

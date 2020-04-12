@@ -1,25 +1,25 @@
-var gulp = require('gulp');
-var browserSync = require('browser-sync');
-var sass = require('gulp-sass');
-var concat = require('gulp-concat');
-var rename = require('gulp-rename');
-var merge = require('merge-stream');
-var cleanCss = require('gulp-clean-css');
-var Remarkable = require('remarkable');
-var highlightJs = require('highlight.js');
-var nunjucksRender = require('gulp-nunjucks-render');
-var fs = require('fs');
-var path = require('path');
-var rimraf = require('rimraf');
-var reload = browserSync.reload;
+const gulp = require('gulp');
+const browserSync = require('browser-sync');
+const sass = require('gulp-sass');
+const concat = require('gulp-concat');
+const rename = require('gulp-rename');
+const merge = require('merge-stream');
+const cleanCss = require('gulp-clean-css');
+const {Remarkable} = require('remarkable');
+const {linkify} = require('remarkable/linkify');
+const highlightJs = require('highlight.js');
+const nunjucksRender = require('gulp-nunjucks-render');
+const fs = require('fs');
+const path = require('path');
+const rimraf = require('rimraf');
+const reload = browserSync.reload;
 
-var markdown = new Remarkable({
+const markdown = new Remarkable({
     html: true,
     langPrefix: 'language-',
-    linkify: true,
     typographer: true,
     xhtmlOut: true,
-    highlight: function (str, lang) {
+    highlight: (str, lang) => {
         if (lang && highlightJs.getLanguage(lang)) {
             try {
                 return highlightJs.highlight(lang, str).value;
@@ -31,48 +31,45 @@ var markdown = new Remarkable({
         try {
             return highlightJs.highlightAuto(str).value;
         } catch (err) {
-            //--
+            console.warn('WARNING: failed to apply code auto-highlight:', err);
         }
 
         return '';
-    }
-});
+    },
+}).use(linkify);
 
-var configFile = '../_config.json';
-var config = {
-    "theme": "default",
-    "name": "{NAME}",
-    "email": "{EMAIL}",
-    "url": "https://{SITE}.com",
-    "rssUUID": "{RSS-UUID}",
-    "description": "{DESCRIPTION}"
-};
+const configFile = '../_config.json';
 
+let config;
 try {
     config = JSON.parse(fs.readFileSync(configFile, {encoding: 'utf8'}));
 } catch (e) {
-    console.warn('WARNING: no config file:', configFile);
+    // TODO function
+    console.error('ERROR: no config file:', configFile);
+    process.exit(1);
 }
 
-var postsSourcesPath = '../_posts';
-var themePath = ('./themes/' + config.theme);
+const postsSourcesPath = '../_posts';
+const themePath = './themes/' + config.theme;
 
 nunjucksRender.setDefaults({
     path: [themePath + '/templates'],
     envOptions: {
-        autoescape: false
-    }
+        autoescape: false,
+    },
 });
 
-gulp.task('css', function () {
-    var scssStream = gulp.src(themePath + '/scss/**/*.scss')
+gulp.task('css', () => {
+    const scssStream = gulp
+        .src(themePath + '/scss/**/*.scss')
         .pipe(sass())
         .pipe(concat('scss'))
         .pipe(reload({stream: true}));
 
-    var cssStream = gulp.src([
+    const cssStream = gulp
+        .src([
             './node_modules/normalize.css/normalize.css',
-            './node_modules/highlight.js/styles/default.css'
+            './node_modules/highlight.js/styles/default.css',
         ])
         .pipe(concat('css'))
         .pipe(reload({stream: true}));
@@ -84,24 +81,30 @@ gulp.task('css', function () {
         .pipe(reload({stream: true}));
 });
 
-gulp.task('renderer', function () {
-    var formatDate = function (dateString) {
-        return (new Date(dateString || +(new Date()))).toISOString().replace(/\.[0-9]+/, '');
-    };
+gulp.task('renderer', () => {
+    const formatDate = (dateString) =>
+        new Date(dateString || +new Date()).toISOString().replace(/\.[0-9]+/, '');
 
-    var urlify = function (string) {
-        return (string || '').toLowerCase().replace(/[^\w]/g, '-').replace(/--+/g, '-').replace(/^(-*)|(-*)$/g, '');
-    };
+    const urlify = (str) =>
+        (str || '')
+            .toLowerCase()
+            .replace(/[^\w]/g, '-')
+            .replace(/--+/g, '-')
+            .replace(/^(-*)|(-*)$/g, '');
 
-    var tagsMap = {};
-    var posts = fs.readdirSync(postsSourcesPath)
+    const tagsMap = {};
+    const posts = fs
+        .readdirSync(postsSourcesPath)
         .reverse()
-        .map(function (fileName) {
-            var post;
-            var fileContent = fs.readFileSync(path.join(postsSourcesPath, fileName), {encoding: 'utf8'});
-            var match = ((new RegExp('^({(\\n(?!}).*)*\\n})((.|\\s)*)', 'g')).exec(fileContent) || []);
-            var jsonHeader = match[1];
-            var article = match[3];
+        .map((fileName) => {
+            let post;
+            const fileContent = fs.readFileSync(path.join(postsSourcesPath, fileName), {
+                encoding: 'utf8',
+            });
+            const match =
+                new RegExp('^({(\\n(?!}).*)*\\n})((.|\\s)*)', 'g').exec(fileContent) || [];
+            const jsonHeader = match[1];
+            const article = match[3];
 
             if (!jsonHeader) {
                 console.warn('WARNING: no json header in:', fileName);
@@ -114,33 +117,40 @@ gulp.task('renderer', function () {
                     return null;
                 }
 
-                var requiredParams = ['title', 'date', 'image'];
-                for (var i in requiredParams) {
+                const requiredParams = ['title', 'date', 'image'];
+                for (let i in requiredParams) {
                     if (!post[requiredParams[i]]) {
-                        console.warn('WARNING: no "', requiredParams[i], '" json param in:', fileName);
-                        return null;
+                        console.error(
+                            'WARNING: no "',
+                            requiredParams[i],
+                            '" json param in:',
+                            fileName
+                        );
+                        process.exit(1);
+                        //return null;
                     }
                 }
             }
 
             if (!article) {
-                console.warn('WARNING: no article in:', fileName);
-                return null;
+                console.error('WARNING: no article in:', fileName);
+                process.exit(1);
+                //return null;
             }
 
             post.article = markdown.render(article);
             post.datetimeISO = formatDate(post.date);
-            post.link = [
-                    '/posts',
-                    post.date.replace(/-/g, '/'),
-                    urlify(post.title)
-                ].join('/') + '/';
+            post.link =
+                ['/posts', post.date.replace(/-/g, '/'), urlify(post.title)].join('/') + '/';
             post.uuid = post.link.replace(/\//g, '-').replace(/-$/, '');
-            post.imagePreview = (post.imagePreview || post.image);
+            post.imagePreview = post.imagePreview || post.image;
 
-            post.preview = post.article.replace(/[\s\S]*<!-- preview -->([\s\S]*)<!-- \/preview -->[\s\S]*/g, '$1');
+            post.preview = post.article.replace(
+                /[\s\S]*<!-- preview -->([\s\S]*)<!-- \/preview -->[\s\S]*/g,
+                '$1'
+            );
 
-            post.previewIndexPade = post.preview.replace(
+            post.previewIndexPage = post.preview.replace(
                 /([\s\S]*)<\/p> */g,
                 '$1&hellip; <a href="' + post.link + '">Read more</a></p>'
             );
@@ -151,14 +161,14 @@ gulp.task('renderer', function () {
                 '<span itemprop="headline"><p>$2</p></span> <span itemprop="articleBody">$3</span>'
             );
 
-            post.tags = (post.tags ? post.tags.split(',') : []).map(function (tag) {
-                var obj = {
+            post.tags = (post.tags ? post.tags.split(',') : []).map((tag) => {
+                const obj = {
                     title: tag,
-                    link: ('/tags/' + urlify(tag) + '/')
+                    link: '/tags/' + urlify(tag) + '/',
                 };
 
-                tagsMap[tag] = (tagsMap[tag] || obj);
-                tagsMap[tag].posts = (tagsMap[tag].posts || []);
+                tagsMap[tag] = tagsMap[tag] || obj;
+                tagsMap[tag].posts = tagsMap[tag].posts || [];
                 tagsMap[tag].posts.push(post);
 
                 return obj;
@@ -166,9 +176,7 @@ gulp.task('renderer', function () {
 
             return post;
         })
-        .filter(function (post) {
-            return (post !== null);
-        });
+        .filter((post) => post !== null);
 
     rimraf.sync('../posts/*');
     rimraf.sync('../tags/*');
@@ -177,112 +185,115 @@ gulp.task('renderer', function () {
         .pipe(gulp.dest('../resources/'))
         .pipe(reload({stream: true}));
 
-    posts.map(function (post) {
+    posts.map((post) => {
         gulp.src(themePath + '/templates/pages/post.html')
-            .pipe(nunjucksRender({
-                data: {
-                    title: post.title,
-                    config: config,
-                    post: post
-                }
-            }))
+            .pipe(
+                nunjucksRender({
+                    data: {
+                        title: post.title,
+                        config,
+                        post,
+                    },
+                })
+            )
             .pipe(rename('index.html'))
             .pipe(gulp.dest(path.join('..', post.link)))
             .pipe(reload({stream: true}));
     });
 
-    var tags = [];
-    for (var key in tagsMap) {
+    let tags = [];
+    for (let key in tagsMap) {
         if (tagsMap.hasOwnProperty(key)) {
-            var tag = tagsMap[key];
+            const tag = tagsMap[key];
 
             tags.push(tag);
             gulp.src(themePath + '/templates/pages/posts.html')
-                .pipe(nunjucksRender({
-                    data: {
-                        title: ('Tag: ' + tag.title),
-                        posts: tag.posts,
-                        config: config,
-                        tag: tag
-                    }
-                }))
+                .pipe(
+                    nunjucksRender({
+                        data: {
+                            title: 'Tag: ' + tag.title,
+                            posts: tag.posts,
+                            config,
+                            tag,
+                        },
+                    })
+                )
                 .pipe(rename('index.html'))
                 .pipe(gulp.dest(path.join('..', tag.link)))
                 .pipe(reload({stream: true}));
         }
     }
 
-    tags = tags.sort(function (a, b) {
-        return (a.posts.length > b.posts.length ? -1 : 1);
-    });
+    tags = tags.sort((a, b) => (a.posts.length > b.posts.length ? -1 : 1));
 
     gulp.src(themePath + '/templates/pages/tags.html')
-        .pipe(nunjucksRender({
-            data: {
-                config: config,
-                tags: tags
-            }
-        }))
+        .pipe(
+            nunjucksRender({
+                data: {
+                    config,
+                    tags,
+                },
+            })
+        )
         .pipe(rename('index.html'))
         .pipe(gulp.dest('../tags'))
         .pipe(reload({stream: true}));
 
-    gulp.src(themePath + '/templates/pages/about.html')
-        .pipe(nunjucksRender({
-            data: {
-                config: config,
-                title: 'About'
-            }
-        }))
-        .pipe(rename('index.html'))
-        .pipe(gulp.dest('../about'))
-        .pipe(reload({stream: true}));
-
     gulp.src(themePath + '/templates/pages/feed.xml')
-        .pipe(nunjucksRender({
-            data: {
-                config: config,
-                nowDatetimeISO: formatDate(),
-                posts: posts
-            }
-        }))
+        .pipe(
+            nunjucksRender({
+                data: {
+                    config,
+                    posts,
+                    nowDatetimeISO: formatDate(),
+                },
+            })
+        )
         .pipe(rename('feed.xml'))
         .pipe(gulp.dest('../'))
         .pipe(reload({stream: true}));
 
     gulp.src(themePath + '/templates/pages/sitemap.xml')
-        .pipe(nunjucksRender({
-            data: {
-                config: config,
-                nowDatetimeISO: formatDate(),
-                posts: posts
-            }
-        }))
+        .pipe(
+            nunjucksRender({
+                data: {
+                    config,
+                    posts,
+                    nowDatetimeISO: formatDate(),
+                },
+            })
+        )
         .pipe(rename('sitemap.xml'))
         .pipe(gulp.dest('../'))
         .pipe(reload({stream: true}));
 
-    return gulp.src(themePath + '/templates/pages/posts.html')
-        .pipe(nunjucksRender({
-            data: {
-                config: config,
-                posts: posts
-            }
-        }))
+    return gulp
+        .src(themePath + '/templates/pages/posts.html')
+        .pipe(
+            nunjucksRender({
+                data: {
+                    config,
+                    posts,
+                },
+            })
+        )
         .pipe(rename('index.html'))
         .pipe(gulp.dest('../'))
         .pipe(reload({stream: true}));
 });
 
-gulp.task('default', ['css', 'renderer'], function () {
+gulp.task('default', ['css', 'renderer'], () => {
     browserSync({
         server: {
-            baseDir: '../'
-        }
+            baseDir: '../',
+        },
     });
 
     gulp.watch('../_posts/*.md', ['renderer']);
-    gulp.watch([themePath + '/**/*.html', themePath + '/**/*.xml', themePath + '/*.html'], ['renderer']);
+    gulp.watch(
+        [themePath + '/**/*.html', themePath + '/**/*.xml', themePath + '/*.html'],
+        ['renderer']
+    );
     gulp.watch([themePath + '/scss/*.scss', './node_modules/normalize.css/normalize.css'], ['css']);
     gulp.watch(['**/*.html', '**/*.css', 'img/**/*'], {cwd: '../'}, reload);
 });

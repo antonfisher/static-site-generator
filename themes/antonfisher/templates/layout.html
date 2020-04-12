@@ -9,9 +9,10 @@
 
 -->
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-    <title lang="en">{{config.name}}'s notes{{' / ' + title if title else ''}}</title>
+    <title lang="en">{{config.name}}{{' / ' + title if title else ''}}</title>
     <meta name="description" content="{{post.metaDescription | default(config.description)}}">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="author" content="{{config.name}}">
@@ -19,51 +20,63 @@
     <link href="/css/all.min.css" rel="stylesheet">
     <link href="/favicon.ico" rel="icon">
 </head>
+
 <body>
-<div class="container">
-    <header class="title" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <a href="/" class="title" title="Home">
-            <span itemprop="name">{{config.name}}</span><span class="notes">&#8217;s notes</span>
-        </a>
+    <div class="container">
+        <header>
+            <div class="title-container" itemprop="author" itemscope itemtype="http://schema.org/Person">
+                <div class="title">
+                    <a href="/" class="name" itemprop="name" title="Home">
+                        {{config.name}}
+                    </a>
+                    <p class="about">
+                        software engineer [js, go]
+                    </p>
+                </div>
 
-        <nav>
-            <div class="link">
-                <a href="/about" title="About">about</a>
+                <img src="/images/anton-fisher-v3.jpg" class="photo" itemprop="image" title="Anton Fisher photo"
+                    alt="Anton Fisher photo">
             </div>
-            <div class="link">
-                <a href="/feed.xml" title="RSS feed link">rss</a>
+            <div class="links-container">
+                <a href="//github.com/antonfisher" target="_blank" rel="noreferrer" title="my code on github">
+                    <span class="icon icon-github"></span>&nbsp;<span class="link-title">github</span>
+                </a>
+                <a href="//instagram.com/{{config.instagram}}" target="_blank" rel="noreferrer" title="my art on instagram">
+                    <span class="icon icon-instagram"></span>&nbsp;<span class="link-title">instagram</span>
+                </a>
+                <a href="//twitter.com/{{config.twitter}}" target="_blank" rel="noreferrer" title="my random thoughts on twitter">
+                    <span class="icon icon-twitter"></span>&nbsp;<span class="link-title">twitter</span>
+                </a>
+                <a href="//linkedin.com/in/afschr/en" target="_blank" rel="noreferrer" title="my job list on linkedin">
+                    <span class="icon icon-linkedin"></span>&nbsp;<span class="link-title">linkedin</span>
+                </a>
+                <a href="/feed.xml" title="RSS feed link">
+                    <span class="icon icon-rss2"></span>&nbsp;<span class="link-title">rss</span>
+                </a>
+                <a href="mailto:{{config.email}}" target="_blank" rel="noreferrer">
+                    <span class="icon icon-mail"></span>&nbsp;<span class="link-title">a.fschr@gmail.com</span>
+                </a>
             </div>
-        </nav>
+        </header>
 
-        <a href="/about">
-            <img src="/images/anton-fisher-v2.jpg"
-                 title="Contact information"
-                 itemprop="image"
-                 alt="About">
-        </a>
-
-        <div class="clear"></div>
-    </header>
-
-    <div class="content">
-        {% block content %}{% endblock %}
-    </div>
-
-    <footer>
-        <nav>
-            <a href="/">home</a>
-            <span class="devider">&nbsp;</span>
-            <a href="/about">about</a>
-            <span class="devider">&nbsp;</span>
-            <a href="/feed.xml">rss</a>
-        </nav>
-        <div>
-            &copy;
-            <time><script>document.write(new Date().getFullYear())</script></time>
-            {{config.name}}
+        <div class="content">
+            {% block content %}{% endblock %}
         </div>
-    </footer>
-</div>
+
+        <footer>
+            <nav>
+                <a href="/">home</a>
+                <span class="divider">&nbsp;</span>
+                <a href="/feed.xml">rss</a>
+            </nav>
+            <div>
+                &copy;
+                <time>
+                    <script>document.write(new Date().getFullYear())</script></time>
+                {{config.name}}
+            </div>
+        </footer>
+    </div>
 </body>
 <script>
     if (window.location.hostname !== 'localhost') {
@@ -75,4 +88,5 @@
         ga('send', 'pageview');
     }
 </script>
+
 </html>
