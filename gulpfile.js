@@ -14,6 +14,23 @@ const path = require('path');
 const rimraf = require('rimraf');
 const reload = browserSync.reload;
 
+const CONFIG_FILE = '../_config.json';
+const POST_SOURCES_PATH = '../_posts';
+
+function abort(err) {
+    console.error(`ERROR: ${err}`);
+    process.exit(1);
+}
+
+let config;
+try {
+    config = JSON.parse(fs.readFileSync(CONFIG_FILE, {encoding: 'utf8'}));
+} catch (e) {
+    abort(`Config file not found: ${CONFIG_FILE}`);
+}
+
+const THEME_PATH = './themes/' + config.theme;
+
 const markdown = new Remarkable({
     html: true,
     langPrefix: 'language-',
@@ -24,36 +41,22 @@ const markdown = new Remarkable({
             try {
                 return highlightJs.highlight(lang, str).value;
             } catch (err) {
-                //--
+                console.error(`ERROR: failed to highlight: "${srt}" as "${lang}"`);
             }
         }
 
         try {
             return highlightJs.highlightAuto(str).value;
         } catch (err) {
-            console.warn('WARNING: failed to apply code auto-highlight:', err);
+            console.warn(`WARNING: failed to apply code auto-highlight: ${err}`);
         }
 
         return '';
     },
 }).use(linkify);
 
-const configFile = '../_config.json';
-
-let config;
-try {
-    config = JSON.parse(fs.readFileSync(configFile, {encoding: 'utf8'}));
-} catch (e) {
-    // TODO function
-    console.error('ERROR: no config file:', configFile);
-    process.exit(1);
-}
-
-const postsSourcesPath = '../_posts';
-const themePath = './themes/' + config.theme;
-
 nunjucksRender.setDefaults({
-    path: [themePath + '/templates'],
+    path: [THEME_PATH + '/templates'],
     envOptions: {
         autoescape: false,
     },
@@ -61,7 +64,7 @@ nunjucksRender.setDefaults({
 
 gulp.task('css', () => {
     const scssStream = gulp
-        .src(themePath + '/scss/**/*.scss')
+        .src(THEME_PATH + '/scss/**/*.scss')
         .pipe(sass())
         .pipe(concat('scss'))
         .pipe(reload({stream: true}));
@@ -94,11 +97,11 @@ gulp.task('renderer', () => {
 
     const tagsMap = {};
     const posts = fs
-        .readdirSync(postsSourcesPath)
+        .readdirSync(POST_SOURCES_PATH)
         .reverse()
         .map((fileName) => {
             let post;
-            const fileContent = fs.readFileSync(path.join(postsSourcesPath, fileName), {
+            const fileContent = fs.readFileSync(path.join(POST_SOURCES_PATH, fileName), {
                 encoding: 'utf8',
             });
             const match =
@@ -109,37 +112,27 @@ gulp.task('renderer', () => {
             if (!jsonHeader) {
                 console.warn('WARNING: no json header in:', fileName);
                 return null;
-            } else {
-                try {
-                    post = JSON.parse(jsonHeader);
-                } catch (e) {
-                    console.warn('WARNING: bad json header in:', fileName);
-                    return null;
-                }
+            }
 
-                const requiredParams = ['title', 'date', 'image'];
-                for (let i in requiredParams) {
-                    if (!post[requiredParams[i]]) {
-                        console.error(
-                            'WARNING: no "',
-                            requiredParams[i],
-                            '" json param in:',
-                            fileName
-                        );
-                        process.exit(1);
-                        //return null;
-                    }
+            try {
+                post = JSON.parse(jsonHeader);
+            } catch (e) {
+                abort(`Bad json header in: ${fileName}, error: ${e}`);
+            }
+
+            const requiredParams = ['title', 'date', 'image'];
+            for (let i in requiredParams) {
+                if (!post[requiredParams[i]]) {
+                    abort(`No "${requiredParams[i]}" json param in: ${fileName}`);
                 }
             }
 
             if (!article) {
-                console.error('WARNING: no article in:', fileName);
-                process.exit(1);
-                //return null;
+                abort(`No article in: ${fileName}`);
             }
 
             post.article = markdown.render(article);
-            post.datetimeISO = formatDate(post.date);
+            post.dateTimeISO = formatDate(post.date);
             post.link =
                 ['/posts', post.date.replace(/-/g, '/'), urlify(post.title)].join('/') + '/';
             post.uuid = post.link.replace(/\//g, '-').replace(/-$/, '');
@@ -181,12 +174,12 @@ gulp.task('renderer', () => {
     rimraf.sync('../posts/*');
     rimraf.sync('../tags/*');
 
-    gulp.src(themePath + '/resources/**/*')
+    gulp.src(THEME_PATH + '/resources/**/*')
         .pipe(gulp.dest('../resources/'))
         .pipe(reload({stream: true}));
 
     posts.map((post) => {
-        gulp.src(themePath + '/templates/pages/post.html')
+        gulp.src(THEME_PATH + '/templates/pages/post.html')
             .pipe(
                 nunjucksRender({
                     data: {
@@ -207,7 +200,7 @@ gulp.task('renderer', () => {
             const tag = tagsMap[key];
 
             tags.push(tag);
-            gulp.src(themePath + '/templates/pages/posts.html')
+            gulp.src(THEME_PATH + '/templates/pages/posts.html')
                 .pipe(
                     nunjucksRender({
                         data: {
@@ -226,7 +219,7 @@ gulp.task('renderer', () => {
 
     tags = tags.sort((a, b) => (a.posts.length > b.posts.length ? -1 : 1));
 
-    gulp.src(themePath + '/templates/pages/tags.html')
+    gulp.src(THEME_PATH + '/templates/pages/tags.html')
         .pipe(
             nunjucksRender({
                 data: {
@@ -239,13 +232,13 @@ gulp.task('renderer', () => {
         .pipe(gulp.dest('../tags'))
         .pipe(reload({stream: true}));
 
-    gulp.src(themePath + '/templates/pages/feed.xml')
+    gulp.src(THEME_PATH + '/templates/pages/feed.xml')
         .pipe(
             nunjucksRender({
                 data: {
                     config,
                     posts,
-                    nowDatetimeISO: formatDate(),
+                    nowDateTimeISO: formatDate(),
                 },
             })
         )
@@ -253,13 +246,13 @@ gulp.task('renderer', () => {
         .pipe(gulp.dest('../'))
         .pipe(reload({stream: true}));
 
-    gulp.src(themePath + '/templates/pages/sitemap.xml')
+    gulp.src(THEME_PATH + '/templates/pages/sitemap.xml')
         .pipe(
             nunjucksRender({
                 data: {
                     config,
                     posts,
-                    nowDatetimeISO: formatDate(),
+                    nowDateTimeISO: formatDate(),
                 },
             })
         )
@@ -268,7 +261,7 @@ gulp.task('renderer', () => {
         .pipe(reload({stream: true}));
 
     return gulp
-        .src(themePath + '/templates/pages/posts.html')
+        .src(THEME_PATH + '/templates/pages/posts.html')
         .pipe(
             nunjucksRender({
                 data: {
@@ -282,18 +275,25 @@ gulp.task('renderer', () => {
         .pipe(reload({stream: true}));
 });
 
-gulp.task('default', ['css', 'renderer'], () => {
+gulp.task('watch', () => {
     browserSync({
         server: {
             baseDir: '../',
         },
     });
 
-    gulp.watch('../_posts/*.md', ['renderer']);
+    gulp.watch('../_posts/*.md', gulp.series('renderer'));
     gulp.watch(
-        [themePath + '/**/*.html', themePath + '/**/*.xml', themePath + '/*.html'],
-        ['renderer']
+        [THEME_PATH + '/**/*.html', THEME_PATH + '/**/*.xml', THEME_PATH + '/*.html'],
+        gulp.series('renderer')
     );
-    gulp.watch([themePath + '/scss/*.scss', './node_modules/normalize.css/normalize.css'], ['css']);
+    gulp.watch(
+        [THEME_PATH + '/scss/*.scss', './node_modules/normalize.css/normalize.css'],
+        gulp.series('css')
+    );
     gulp.watch(['**/*.html', '**/*.css', 'img/**/*'], {cwd: '../'}, reload);
 });
+
+gulp.task('build', gulp.parallel('css', 'renderer'));
+
+gulp.task('default', gulp.series('build', 'watch'));

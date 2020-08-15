@@ -1,31 +1,31 @@
 {
   "name": "static-blog-generator",
   "version": "1.0.0",
-  "description": "static blog generator, gulp, nunjucks, markdown",
+  "description": "Static blog generator",
   "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:antonfisher/static-blog-generator.git"
+    "url": "https://github.com/antonfisher/static-blog-generator.git"
   },
   "scripts": {
     "start": "./node_modules/.bin/gulp",
-    "watch": "./node_modules/.bin/gulp --watch"
+    "build": "./node_modules/.bin/gulp build"
   },
   "engines": {
-    "node": "8.10"
+    "node": "14.8"
   },
   "dependencies": {
-    "browser-sync": "2.26.7",
-    "gulp": "3.9.1",
+    "browser-sync": "2.26.12",
+    "gulp": "4.0.2",
     "gulp-concat": "2.6.1",
     "gulp-clean-css": "4.3.0",
     "gulp-nunjucks-render": "2.2.3",
     "gulp-rename": "2.0.0",
-    "gulp-sass": "4.0.2",
-    "highlight.js": "9.18.1",
+    "gulp-sass": "4.1.0",
+    "highlight.js": "10.1.2",
     "merge-stream": "2.0.0",
     "normalize.css": "8.0.1",
-    "remarkable": "2.0.0",
+    "remarkable": "2.0.1",
     "rimraf": "3.0.2"
   },
   "author": {

@@ -7,7 +7,7 @@
     <link href="{{config.url}}/feed.xml" rel="self"/>
     <link href="{{config.url}}/"/>
     <id>urn:uuid:{{config.rssUUID}}</id>
-    <updated>{{nowDatetimeISO}}</updated>
+    <updated>{{nowDateTimeISO}}</updated>
 
 
     {% for post in posts %}
@@ -16,7 +16,7 @@
         <link href="{{config.url}}{{post.link}}"/>
         <link rel="alternate" type="text/html" href="{{config.url}}{{post.link}}"/>
         <id>urn:uuid:{{post.uuid}}</id>
-        <updated>{{post.datetimeISO}}</updated>
+        <updated>{{post.dateTimeISO}}</updated>
         <summary>{{post.preview}}</summary>
         <content type="xhtml">
             <div xmlns="http://www.w3.org/1999/xhtml">

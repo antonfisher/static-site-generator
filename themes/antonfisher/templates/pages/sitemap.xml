@@ -7,13 +7,13 @@
 
     <url>
         <loc>{{config.url}}</loc>
-        <lastmod>{{nowDatetimeISO}}</lastmod>
+        <lastmod>{{nowDateTimeISO}}</lastmod>
     </url>
 
     {% for post in posts %}
     <url>
         <loc>{{config.url}}{{post.link}}</loc>
-        <lastmod>{{post.datetimeISO}}</lastmod>
+        <lastmod>{{post.dateTimeISO}}</lastmod>
     </url>
     {% endfor %}
 
