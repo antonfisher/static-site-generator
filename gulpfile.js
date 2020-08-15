@@ -106,8 +106,9 @@ gulp.task('renderer', () => {
       const article = match[3];
 
       if (!jsonHeader) {
-        console.warn('WARNING: no json header in:', fileName);
-        return null;
+        abort(`No json header in: ${fileName}`);
+      } else if (!article) {
+        abort(`No article in: ${fileName}`);
       }
 
       try {
@@ -116,15 +117,11 @@ gulp.task('renderer', () => {
         abort(`Bad json header in: ${fileName}, error: ${e}`);
       }
 
-      const requiredParams = ['title', 'date', 'image'];
+      const requiredParams = ['title', 'date'];
       for (let i in requiredParams) {
         if (!post[requiredParams[i]]) {
           abort(`No "${requiredParams[i]}" json param in: ${fileName}`);
         }
-      }
-
-      if (!article) {
-        abort(`No article in: ${fileName}`);
       }
 
       post.article = markdown.render(article);
@@ -160,8 +157,7 @@ gulp.task('renderer', () => {
       });
 
       return post;
-    })
-    .filter((post) => post !== null);
+    });
 
   rimraf.sync('../posts/*');
   rimraf.sync('../tags/*');
@@ -214,19 +210,21 @@ gulp.task('renderer', () => {
 
   tags = tags.sort((a, b) => (a.posts.length > b.posts.length ? -1 : 1));
 
-  gulp
-    .src(THEME_PATH + '/templates/pages/tags.html')
-    .pipe(
-      nunjucksRender({
-        data: {
-          config,
-          tags
-        }
-      })
-    )
-    .pipe(rename('index.html'))
-    .pipe(gulp.dest('../tags'))
-    .pipe(reload({stream: true}));
+  if (tags.length > 0) {
+    gulp
+      .src(THEME_PATH + '/templates/pages/tags.html')
+      .pipe(
+        nunjucksRender({
+          data: {
+            config,
+            tags
+          }
+        })
+      )
+      .pipe(rename('index.html'))
+      .pipe(gulp.dest('../tags'))
+      .pipe(reload({stream: true}));
+  }
 
   gulp
     .src(THEME_PATH + '/templates/pages/feed.xml')
