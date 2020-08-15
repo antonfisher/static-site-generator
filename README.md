@@ -1,20 +1,20 @@
-# Markdown based static blog generator
+# Markdown based static site generator
 
 Used for: [https://antonfisher.com](https://antonfisher.com)
 
 ## Usage
 
-Create blog and configure:
+Create site and configure:
 
 ```bash
-mkdir myblog
-cd myblog
+mkdir my-site
+cd my-site
 echo 'static-site-generator'>.gitignore
-git clone https://github.com/antonfisher/static-blog-generator.git
-cd static-blog-generator
+git clone https://github.com/antonfisher/static-site-generator.git
+cd static-site-generator
 npm install
 cd -
-cp static-blog-generator/_config.example.json _config.json
+cp static-site-generator/_config.example.json _config.json
 vim _config.json
 ```
 
