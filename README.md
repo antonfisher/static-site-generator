@@ -10,7 +10,7 @@ Create site and configure:
 mkdir my-site
 cd my-site
 echo 'static-site-generator'>.gitignore
-git clone https://github.com/antonfisher/static-site-generator.git
+git clone git@github.com:antonfisher/static-site-generator.git
 cd static-site-generator
 npm install
 cd -
