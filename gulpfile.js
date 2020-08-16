@@ -34,7 +34,7 @@ let config;
 try {
   config = JSON.parse(fs.readFileSync(CONFIG_FILE, {encoding: 'utf8'}));
 } catch (e) {
-  abort(`Config file not found: ${CONFIG_FILE}`);
+  abort(`Config file "${CONFIG_FILE}" not found or filed to parse: ${e}`);
 }
 
 const THEME_PATH = './themes/' + config.theme;
