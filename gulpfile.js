@@ -30,6 +30,10 @@ function urlify(str) {
     .replace(/^(-*)|(-*)$/g, '');
 }
 
+function formatDate(dateString = +new Date()) {
+  return new Date(dateString).toISOString().replace(/\.[0-9]+/, '');
+}
+
 let config;
 try {
   config = JSON.parse(fs.readFileSync(CONFIG_FILE, {encoding: 'utf8'}));
@@ -37,7 +41,7 @@ try {
   abort(`Config file "${CONFIG_FILE}" not found or filed to parse: ${e}`);
 }
 
-const THEME_PATH = './themes/' + config.theme;
+const THEME_PATH = '../_theme';
 
 const markdown = new Remarkable({
   html: true,
@@ -82,7 +86,7 @@ gulp.task('css', () => {
     .pipe(concat('css'))
     .pipe(reload({stream: true}));
 
-  return merge(scssStream, cssStream)
+  return merge(cssStream, scssStream)
     .pipe(concat('all.min.css'))
     .pipe(cleanCss())
     .pipe(gulp.dest('../css'))
@@ -90,8 +94,6 @@ gulp.task('css', () => {
 });
 
 gulp.task('renderer', () => {
-  const formatDate = (dateString) => new Date(dateString || +new Date()).toISOString().replace(/\.[0-9]+/, '');
-
   const tagsMap = {};
   const posts = fs
     .readdirSync(POST_SOURCES_PATH)
