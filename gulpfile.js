@@ -30,8 +30,14 @@ function urlify(str) {
     .replace(/^(-*)|(-*)$/g, '');
 }
 
-function formatDate(dateString = +new Date()) {
+// '2020-09-01' -> '2020-09-01T00:00:00Z'
+function formatDateToISO(dateString = +new Date()) {
   return new Date(dateString).toISOString().replace(/\.[0-9]+/, '');
+}
+
+// '2020-09-01' -> '01 Sep 2020'
+function formatDateToUTC(dateString = +new Date()) {
+  return new Date(dateString).toUTCString().split(' ').slice(1,4).join(' ');
 }
 
 let config;
@@ -127,7 +133,8 @@ gulp.task('renderer', () => {
       }
 
       post.article = markdown.render(article);
-      post.dateTimeISO = formatDate(post.date);
+      post.dateTimeISO = formatDateToISO(post.date);
+      post.dateTimeUTC = formatDateToUTC(post.date);
       post.link = ['/posts', post.date.replace(/-/g, '/'), urlify(post.title)].join('/') + '/';
       post.uuid = post.link.replace(/\//g, '-').replace(/-$/, '');
       post.imagePreview = post.imagePreview || post.image;
@@ -235,7 +242,7 @@ gulp.task('renderer', () => {
         data: {
           config,
           posts,
-          nowDateTimeISO: formatDate()
+          nowDateTimeISO: formatDateToISO()
         }
       })
     )
@@ -250,7 +257,7 @@ gulp.task('renderer', () => {
         data: {
           config,
           posts,
-          nowDateTimeISO: formatDate()
+          nowDateTimeISO: formatDateToISO()
         }
       })
     )
