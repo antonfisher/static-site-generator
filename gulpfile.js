@@ -141,16 +141,21 @@ gulp.task('renderer', () => {
 
       post.preview = post.article.replace(/[\s\S]*<!-- preview -->([\s\S]*)<!-- \/preview -->[\s\S]*/g, '$1');
 
-      post.previewIndexPage = post.preview.replace(
-        /([\s\S]*)<\/p> */g,
-        '$1&hellip; <a href="' + post.link + '">Read more</a></p>'
-      );
+      if (post.article === post.preview) {
+        post.previewIndexPage = post.article;
+      } else {
+        //TODO: move to template layer?
+        post.previewIndexPage = post.preview.replace(
+          /([\s\S]*)<\/p> */g,
+          '$1&hellip; <a href="' + post.link + '">Read more</a></p>'
+        );
 
-      // for google
-      post.article = post.article.replace(
-        /([\s\S]*)<!-- preview -->([\s\S]*)<!-- \/preview -->([\s\S]*)/g,
-        '<span itemprop="headline"><p>$2</p></span> <span itemprop="articleBody">$3</span>'
-      );
+        // for google
+        post.article = post.article.replace(
+          /([\s\S]*)<!-- preview -->([\s\S]*)<!-- \/preview -->([\s\S]*)/g,
+          '<span itemprop="headline"><p>$2</p></span> <span itemprop="articleBody">$3</span>'
+        );
+      }
 
       post.tags = (post.tags ? post.tags.split(',') : []).map((tag) => {
         const obj = {
