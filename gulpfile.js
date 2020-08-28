@@ -37,7 +37,7 @@ function formatDateToISO(dateString = +new Date()) {
 
 // '2020-09-01' -> '01 Sep 2020'
 function formatDateToUTC(dateString = +new Date()) {
-  return new Date(dateString).toUTCString().split(' ').slice(1,4).join(' ');
+  return new Date(dateString).toUTCString().split(' ').slice(1, 4).join(' ');
 }
 
 let config;
@@ -137,6 +137,7 @@ gulp.task('renderer', () => {
       post.dateTimeUTC = formatDateToUTC(post.date);
       post.link = ['/posts', post.date.replace(/-/g, '/'), urlify(post.title)].join('/') + '/';
       post.uuid = post.link.replace(/\//g, '-').replace(/-$/, '');
+      post.anchor = `${post.date}-${urlify(post.title)}`;
       post.imagePreview = post.imagePreview || post.image;
 
       post.preview = post.article.replace(/[\s\S]*<!-- preview -->([\s\S]*)<!-- \/preview -->[\s\S]*/g, '$1');
