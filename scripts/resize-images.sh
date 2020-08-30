@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
 #
+# Resize (PNG, JPG) and compress (PNG) images recursively in the run folder
+# if greater than MAX_WIDTH (first parameter).
+#
+# Usage:
+#   resize-and-compress-images.sh 730
+#
 # Requirements:
 #   apt install imagemagick pngquant
 #
